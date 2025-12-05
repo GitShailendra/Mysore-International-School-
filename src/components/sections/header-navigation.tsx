@@ -65,7 +65,7 @@ const mainNavItems = [
 ];
 
 const utilityNavItems = [
-  { title: "Login", href: "/login", hasIcon: true },
+  { title: "Login", href: "/admin-login", hasIcon: true },
 ];
 
 const HeaderNavigation = () => {

@@ -63,7 +63,7 @@ const utilityNavItems = [
   { label: "Alumni", href: "/alumni" },
   { label: "Support", href: "/support" },
   { label: "Bears' Den", href: "/bears-den" },
-  { label: "My Mysore International School Login", href: "/login" },
+  { label: "My Mysore International School Login", href: "/admin-login" },
 ];
 
 const NavLink = ({ item, onClose }: { item: NavItem; onClose: () => void }) => {
