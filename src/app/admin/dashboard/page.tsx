@@ -1,9 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import StaggeredMenu from '@/components/StaggeredMenu'
 
 export default function AdminDashboard() {
+  const router = useRouter()
+
   const menuItems = [
     { label: 'Dashboard', ariaLabel: 'Go to dashboard', link: '/admin/dashboard' },
     { label: 'Admissions', ariaLabel: 'Manage admissions', link: '/admin/admissions' },
@@ -13,27 +16,26 @@ export default function AdminDashboard() {
 
   const stats = [
     {
-      title: 'Total Students',
-      value: '1,248',
-      change: '+12%',
+      title: 'Total Enquiries',
+      value: '3',
+      change: '+2 this week',
       positive: true
     },
     {
-      title: 'New Admissions',
-      value: '156',
-      change: '+8%',
+      title: 'Active Enquiries',
+      value: '2',
+      change: 'New: 1',
       positive: true
     },
     {
-      title: 'Upcoming Events',
-      value: '24',
-      change: '+3',
+      title: 'Total Events',
+      value: '4',
+      change: 'Published: 4',
       positive: true
     },
     {
-      title: 'Faculty Members',
-      value: '78',
-      change: '+2',
+      title: 'System Status',
+      value: 'Online',
       positive: true
     }
   ]
@@ -41,23 +43,23 @@ export default function AdminDashboard() {
   const recentActivities = [
     {
       title: 'New admission inquiry',
-      description: 'John Doe submitted application for Grade 5',
-      time: '10 minutes ago'
+      description: 'Raj Kumar applied for Grade 5 admission',
+      time: '2 days ago'
     },
     {
-      title: 'Event published',
-      description: 'Annual Sports Day 2025 added to gallery',
-      time: '1 hour ago'
+      title: 'New admission inquiry',
+      description: 'Priya Sharma interested in Grade 3',
+      time: '3 days ago'
     },
     {
-      title: 'Staff update',
-      description: 'New mathematics teacher profile added',
-      time: '3 hours ago'
+      title: 'Event gallery updated',
+      description: 'Chocolate Alien Day event published',
+      time: '1 week ago'
     },
     {
-      title: 'System update',
-      description: 'Analytics dashboard data refreshed',
-      time: '5 hours ago'
+      title: 'Event gallery updated',
+      description: 'Fathers Day Celebration event published',
+      time: '1 week ago'
     }
   ]
 
@@ -74,8 +76,6 @@ export default function AdminDashboard() {
         colors={['#D1A3FF', '#580B57']}
         accentColor="#580B57"
         logoUrl="/fulllogo.svg"
-        onMenuOpen={() => console.log('Menu opened')}
-        onMenuClose={() => console.log('Menu closed')}
         isFixed={true}
         displaySocials={false}
       />
@@ -137,7 +137,10 @@ export default function AdminDashboard() {
             Quick Actions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <button className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left">
+            <button 
+              onClick={() => router.push('/admin/admissions')}
+              className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left"
+            >
               <div className="font-display text-2xl font-semibold text-primary group-hover:text-white mb-2">
                 Admissions
               </div>
@@ -146,7 +149,10 @@ export default function AdminDashboard() {
               </div>
             </button>
 
-            <button className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left">
+            <button 
+              onClick={() => router.push('/admin/events')}
+              className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left"
+            >
               <div className="font-display text-2xl font-semibold text-primary group-hover:text-white mb-2">
                 Event Gallery
               </div>
@@ -155,7 +161,10 @@ export default function AdminDashboard() {
               </div>
             </button>
 
-            <button className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left">
+            <button 
+              onClick={() => router.push('/admin/analytics')}
+              className="border-2 border-primary p-6 hover:bg-primary hover:text-white transition-all duration-300 group text-left"
+            >
               <div className="font-display text-2xl font-semibold text-primary group-hover:text-white mb-2">
                 Analytics
               </div>
@@ -203,9 +212,6 @@ export default function AdminDashboard() {
                 <h3 className="font-display text-xl font-semibold text-primary mb-2">
                   System Status
                 </h3>
-                <p className="font-body text-gray-600">
-                  All systems operational
-                </p>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
