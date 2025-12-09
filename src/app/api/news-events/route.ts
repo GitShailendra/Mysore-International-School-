@@ -59,8 +59,12 @@ export async function POST(request: NextRequest) {
     const excerpt = formData.get("excerpt") as string;
     const fullContent = formData.get("fullContent") as string;
     const date = formData.get("date") as string;
-    const time = formData.get("time") as string;
-    const location = formData.get("location") as string;
+    const rawTime = formData.get('time')
+const rawLocation = formData.get('location')
+
+const time = rawTime ? String(rawTime) : undefined
+const location = rawLocation ? String(rawLocation) : undefined
+
     const status = formData.get("status") as string;
     const image = formData.get("image") as File;
 
