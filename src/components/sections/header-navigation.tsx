@@ -14,6 +14,7 @@ import studentlife from "../../assets/mis2.jpg";
 import campus from "../../assets/mis7.jpg";
 import admissions from "../../assets/mis7.jpg";
 import contact from "../../assets/mis8.jpg";
+
 const mainNavItems = [
   {
     title: "About Us",
@@ -34,8 +35,8 @@ const mainNavItems = [
     href: "/academics",
     image: academics,
     subItems: [
-        { title: "Curriculum", href: "/academics/curriculum" },
-        { title: "Faculty & Team", href: "/academics/faculty-team" },
+      { title: "Curriculum", href: "/academics/curriculum" },
+      { title: "Faculty & Team", href: "/academics/faculty-team" },
     ],
   },
   {
@@ -52,9 +53,9 @@ const mainNavItems = [
     href: "/student-life",
     image: studentlife,
     subItems: [
-        { title: "Arts & Activities", href: "/student-life/arts-activities" },
-        { title: "Athletics", href: "/student-life/athletics" },
-        { title: "Events & Community Service", href: "/student-life/events-community-service" },
+      { title: "Arts & Activities", href: "/student-life/arts-activities" },
+      { title: "Athletics", href: "/student-life/athletics" },
+      { title: "Events & Community Service", href: "/student-life/events-community-service" },
     ],
   },
   {
@@ -75,20 +76,18 @@ const HeaderNavigation = () => {
   return (
     <>
       {/* Top Utility Bar */}
-      <div className="fixed top-0  left-0 right-0 z-50 bg-[#580B57] hidden lg:block">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[#580B57] hidden lg:block">
         <div className="mx-auto flex h-[32px] items-center justify-end px-5 md:px-10 max-w-[1700px] border-b border-white/10">
           <nav className="flex items-center gap-6 xl:gap-8">
             {utilityNavItems.map((item) => (
-              <a
+              <Link
                 key={item.title}
                 href={item.href}
                 className="text-white/90 hover:text-[#D1A3FF] font-sans text-[11px] xl:text-[12px] font-medium tracking-wide flex items-center gap-1.5 whitespace-nowrap transition-colors duration-200"
               >
-                {item.hasIcon && (
-                  <Lock className="h-3 w-3" />
-                )}
+                {item.hasIcon && <Lock className="h-3 w-3" />}
                 {item.title}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -117,24 +116,36 @@ const HeaderNavigation = () => {
                 onMouseEnter={() => item.subItems && setActiveMenu(item.title)}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button
-                  className={cn(
-                    "px-4 xl:px-5 py-8 text-white hover:bg-[#4A0A4A] transition-colors duration-200 flex items-center font-semibold text-[14px] xl:text-[15px] uppercase tracking-[1px] relative",
-                    activeMenu === item.title && "bg-[#4A0A4A]"
-                  )}
-                >
-                  {item.title}
-                  {/* Yellow underline for active item */}
-                  {activeMenu === item.title && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#D1A3FF]" />
-                  )}
-                </button>
+                {item.subItems ? (
+                  // Items with dropdown - use button
+                  <button
+                    className={cn(
+                      "px-4 xl:px-5 py-8 text-white hover:bg-[#4A0A4A] transition-colors duration-200 flex items-center font-semibold text-[14px] xl:text-[15px] uppercase tracking-[1px] relative",
+                      activeMenu === item.title && "bg-[#4A0A4A]"
+                    )}
+                  >
+                    {item.title}
+                    {/* Yellow underline for active item */}
+                    {activeMenu === item.title && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#D1A3FF]" />
+                    )}
+                  </button>
+                ) : (
+                  // Items without dropdown - use Link
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "px-4 xl:px-5 py-8 text-white hover:bg-[#4A0A4A] transition-colors duration-200 flex items-center font-semibold text-[14px] xl:text-[15px] uppercase tracking-[1px] relative block"
+                    )}
+                  >
+                    {item.title}
+                  </Link>
+                )}
               </div>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-         
             <Button
               variant="ghost"
               size="icon"
@@ -154,8 +165,8 @@ const HeaderNavigation = () => {
             onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="max-w-[1700px] mx-auto">
-              {mainNavItems.map((item) => (
-                item.title === activeMenu && (
+              {mainNavItems.map((item) =>
+                item.title === activeMenu && item.subItems ? (
                   <div key={item.title} className="grid grid-cols-2 min-h-[400px]">
                     {/* Left Side - Image */}
                     <div className="relative overflow-hidden">
@@ -177,8 +188,19 @@ const HeaderNavigation = () => {
                     {/* Right Side - Menu Links */}
                     <div className="bg-white flex flex-col justify-center py-12 px-16">
                       <div className="space-y-2">
-                        {item.subItems && item.subItems.map((subItem, index) => (
-                          <a
+                        {/* Main page link */}
+                        <Link
+                          href={item.href}
+                          className="block py-4 text-gray-900 hover:text-[#580B57] transition-colors duration-200 border-b border-gray-200 text-base font-semibold group"
+                        >
+                          <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">
+                            {item.title} Overview
+                          </span>
+                        </Link>
+
+                        {/* Sub items */}
+                        {item.subItems.map((subItem, index) => (
+                          <Link
                             key={index}
                             href={subItem.href}
                             className="block py-4 text-gray-900 hover:text-[#580B57] transition-colors duration-200 border-b border-gray-200 last:border-b-0 text-base font-normal group"
@@ -186,21 +208,21 @@ const HeaderNavigation = () => {
                             <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">
                               {subItem.title}
                             </span>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
                   </div>
-                )
-              ))}
+                ) : null
+              )}
             </div>
           </div>
         )}
       </header>
 
-      <MobileMenuOverlay 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
+      <MobileMenuOverlay
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
       />
     </>
   );

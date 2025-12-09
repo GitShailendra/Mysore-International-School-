@@ -1,16 +1,31 @@
+'use client'
+
+import { useState } from 'react'
 import { Metadata } from 'next'
 import HeaderNavigation from '@/components/sections/header-navigation'
 import Footer from '@/components/sections/footer'
 import MobileNewsEventsWrapper from '@/components/mobile-news-events-wrapper'
-import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack'
 import ScrollReveal from '@/components/ScrollReveal'
 
-export const metadata: Metadata = {
-  title: 'How to Apply - Mysore International School',
-  description: 'Learn about the admission process and requirements at Mysore International School',
-}
-
 export default function HowToApplyPage() {
+  const [formData, setFormData] = useState({
+    studentName: '',
+    parentName: '',
+    email: '',
+    phone: '',
+    occupation: '',
+    category: 'Admission',
+    message: '',
+    source: 'Website'
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  const categories = ['Admission', 'Inquiry', 'Visit', 'Other']
+  const sources = ['Website', 'Facebook', 'Instagram', 'Newspaper', 'Friends/Family', 'Google Search', 'Other']
+
   const admissionProcess = [
     {
       step: "01",
@@ -62,8 +77,57 @@ export default function HowToApplyPage() {
     { grade: "Grade 3+", age: "Based on previous grade completion" }
   ]
 
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError('')
+    
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setSuccess(true)
+        setTimeout(() => {
+          setFormData({
+            studentName: '',
+            parentName: '',
+            email: '',
+            phone: '',
+            occupation: '',
+            category: 'Admission',
+            message: '',
+            source: 'Website'
+          })
+          setSuccess(false)
+        }, 2000)
+      } else {
+        setError(data.message || 'Failed to submit inquiry')
+      }
+    } catch (error) {
+      console.error('Submit error:', error)
+      setError('Network error. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
   return (
-    <main className="min-h-screen bg-white   overflow-x-hidden">
+    <main className="min-h-screen bg-white overflow-x-hidden">
       <HeaderNavigation />
       <MobileNewsEventsWrapper />
 
@@ -253,19 +317,194 @@ export default function HowToApplyPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
+      {/* Contact Form Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-200 bg-secondary">
         <div className="container mx-auto max-w-4xl">
-          <p className="font-body text-xl text-gray-700 mb-10 leading-relaxed">
-            We encourage you to schedule a campus visit to experience our learning environment 
-            firsthand and meet our dedicated faculty.
-          </p>
-          <a 
-            href="mailto:admissions@mis.edu.in?subject=Campus%20Visit%20Request"
-            className="inline-block font-body text-lg font-semibold text-white bg-primary px-10 py-5 hover:bg-[#6B0F6B] transition-colors duration-300"
-          >
-            Schedule a Visit
-          </a>
+          {/* Success Message */}
+          {success && (
+            <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+              <p className="font-semibold">Success!</p>
+              <p className="text-sm">Your inquiry has been submitted. We'll get back to you soon.</p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+              <p className="font-semibold">Error</p>
+              <p className="text-sm">{error}</p>
+            </div>
+          )}
+
+          {/* Form Header */}
+          <div className="mb-12">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+              Schedule a Visit
+            </h2>
+            <p className="font-body text-xl text-gray-700 leading-relaxed">
+              We encourage you to schedule a campus visit to experience our learning environment 
+              firsthand and meet our dedicated faculty. Fill out the form below and we'll get back to you soon.
+            </p>
+          </div>
+
+          {/* Form Fields */}
+          <div className="space-y-6">
+            {/* Student Name */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Student Name *
+              </label>
+              <input
+                type="text"
+                name="studentName"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                placeholder="Enter student's full name"
+                value={formData.studentName}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Parent Name */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Parent's Name *
+              </label>
+              <input
+                type="text"
+                name="parentName"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                placeholder="Enter parent's full name"
+                value={formData.parentName}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                placeholder="your.email@example.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Phone Number *
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                placeholder="+91 XXX XXX XXXX"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Occupation */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Parent's Occupation *
+              </label>
+              <input
+                type="text"
+                name="occupation"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                placeholder="Enter parent's occupation"
+                value={formData.occupation}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Category */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Subject *
+              </label>
+              <select
+                name="category"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                value={formData.category}
+                onChange={handleChange}
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Where did you hear about us */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Where did you hear about us? *
+              </label>
+              <select
+                name="source"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                value={formData.source}
+                onChange={handleChange}
+              >
+                {sources.map((source) => (
+                  <option key={source} value={source}>{source}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Message */}
+            <div>
+              <label className="block font-body text-sm font-medium text-gray-700 mb-2">
+                Message
+              </label>
+              <textarea
+                name="message"
+                rows={4}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none bg-white"
+                placeholder="Tell us more about your inquiry..."
+                value={formData.message}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Required Fields Note */}
+            <p className="font-body text-sm text-gray-500">
+              * Required fields
+            </p>
+
+            {/* Submit Button */}
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting || success}
+              className="w-full py-4 px-6 bg-primary text-white rounded-lg font-body font-semibold hover:bg-[#6B0F6B] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sending...
+                </span>
+              ) : success ? (
+                'Submitted Successfully!'
+              ) : (
+                'Send Message'
+              )}
+            </button>
+          </div>
         </div>
       </section>
 

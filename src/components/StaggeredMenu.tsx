@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
 
@@ -30,6 +31,7 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   isFixed?: boolean;
+  showLogout?: boolean; // NEW: Show logout button
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -48,8 +50,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   isFixed = false,
   closeOnClickAway = true,
   onMenuOpen,
-  onMenuClose
+  onMenuClose,
+  showLogout = false // NEW: Default to false
 }: StaggeredMenuProps) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -70,6 +74,33 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
   const busyRef = useRef(false);
   const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
+
+  // NEW: Logout handler
+  const handleLogout = useCallback(() => {
+    if (confirm('Are you sure you want to logout?')) {
+      try {
+        // Clear localStorage
+        localStorage.removeItem('token');
+        localStorage.clear();
+        
+        // Clear all cookies
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        
+        // Close menu and redirect
+        closeMenu();
+        
+        // Use window.location for hard redirect
+        window.location.href = '/admin-login';
+      } catch (error) {
+        console.error('Logout error:', error);
+        router.push('/admin-login');
+      }
+    }
+  }, [router]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -116,6 +147,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     ) as HTMLElement[];
     const socialTitle = panel.querySelector('.sm-socials-title') as HTMLElement | null;
     const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
+    const logoutBtn = panel.querySelector('.sm-logout-btn') as HTMLElement | null; // NEW
 
     const layerStates = layers.map(el => ({ el, start: Number(gsap.getProperty(el, 'xPercent')) }));
     const panelStart = Number(gsap.getProperty(panel, 'xPercent'));
@@ -131,6 +163,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
     if (socialLinks.length) {
       gsap.set(socialLinks, { y: 25, opacity: 0 });
+    }
+    if (logoutBtn) { // NEW
+      gsap.set(logoutBtn, { y: 25, opacity: 0 });
     }
 
     const tl = gsap.timeline({ paused: true });
@@ -176,7 +211,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       }
     }
 
-    if (socialTitle || socialLinks.length) {
+    if (socialTitle || socialLinks.length || logoutBtn) {
       const socialsStart = panelInsertTime + panelDuration * 0.4;
       if (socialTitle) {
         tl.to(
@@ -203,6 +238,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             }
           },
           socialsStart + 0.04
+        );
+      }
+      if (logoutBtn) { // NEW
+        tl.to(
+          logoutBtn,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.55,
+            ease: 'power3.out'
+          },
+          socialsStart + 0.12
         );
       }
     }
@@ -255,8 +302,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }
         const socialTitle = panel.querySelector('.sm-socials-title') as HTMLElement | null;
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
+        const logoutBtn = panel.querySelector('.sm-logout-btn') as HTMLElement | null; // NEW
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+        if (logoutBtn) gsap.set(logoutBtn, { y: 25, opacity: 0 }); // NEW
         busyRef.current = false;
       }
     });
@@ -448,6 +497,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               </li>
             )}
           </ul>
+          
           {displaySocials && socialItems && socialItems.length > 0 && (
             <div className="sm-socials" aria-label="Social links">
               <h3 className="sm-socials-title">Socials</h3>
@@ -460,6 +510,59 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* NEW: Logout Button */}
+          {showLogout && (
+            <div className="sm-logout" style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+              <button
+                onClick={handleLogout}
+                className="sm-logout-btn"
+                type="button"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  width: '100%',
+                  padding: '1rem 1.5rem',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '2px solid rgba(239, 68, 68, 0.3)',
+                  color: '#ef4444',
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  borderRadius: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#ef4444';
+                  e.currentTarget.style.color = '#fff';
+                  e.currentTarget.style.borderColor = '#ef4444';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
+                  e.currentTarget.style.color = '#ef4444';
+                  e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+                }}
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                <span>Logout</span>
+              </button>
             </div>
           )}
         </div>

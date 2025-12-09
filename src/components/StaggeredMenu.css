@@ -358,13 +358,40 @@
 }
 
 @media (max-width: 640px) {
-  .staggered-menu-panel {
-    width: 100%;
-    left: 0;
-    right: 0;
+  .sm-panel-item {
+    font-size: 2rem; /* Reduced from 3.5rem */
+    letter-spacing: -1px; /* Reduced from -2px */
+    padding-right: 1.5em; /* Reduced from 2.5em */
+    word-break: break-word; /* Allow text to wrap if needed */
   }
 
-  .staggered-menu-wrapper[data-open] .sm-logo-img {
-    filter: invert(100%);
+  .sm-panel-list[data-numbering] .sm-panel-item::after {
+    font-size: 14px; /* Reduced from 18px */
+    right: 0.5em; /* Reduced from 1.5em */
+  }
+
+  .sm-panel-inner {
+    padding-right: 0.5rem; /* Add some right padding */
+  }
+
+  .sm-panel-list {
+    gap: 1rem; /* Reduced gap between items */
+  }
+
+  .staggered-menu-panel {
+    padding: 6em 1.5em 2em 1.5em; /* Reduced horizontal padding */
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 641px) {
+  .sm-panel-item {
+    font-size: 2.5rem; /* Slightly smaller for tablets */
+    letter-spacing: -1.5px;
+    padding-right: 2em;
+  }
+
+  .sm-panel-list[data-numbering] .sm-panel-item::after {
+    font-size: 16px;
+    right: 1em;
   }
 }

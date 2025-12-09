@@ -8,18 +8,38 @@ export default function AdminLoginPage() {
     password: ''
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('') // ✅ Add this line
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError('')
     
-    // Add your login logic here
-    console.log('Login attempt:', formData)
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('adminData', JSON.stringify(data.admin))
+        
+        window.location.href = '/admin/dashboard'
+      } else {
+        setError(data.message || 'Login failed')
+      }
+    } catch (error) {
+      setError('Network error. Please try again.')
+      console.error('Login error:', error)
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +72,13 @@ export default function AdminLoginPage() {
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* ✅ Add error display */}
+            {error && (
+              <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-white text-sm">
+                {error}
+              </div>
+            )}
+
             {/* Email Field */}
             <div>
               <label 

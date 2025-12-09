@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import HeaderNavigation from '@/components/sections/header-navigation'
 import Footer from '@/components/sections/footer'
 import MobileNewsEventsWrapper from '@/components/mobile-news-events-wrapper'
-
+import DiscoverCtaSection from '@/components/sections/discover-cta-section'
 export const metadata: Metadata = {
   title: 'Contact Us - Mysore International School',
   description: 'Get in touch with Mysore International School - contact information, location, and inquiry details',
@@ -220,10 +220,11 @@ export default function ContactUsPage() {
                 </div>
               </div>
             </div>
-
+            
           </div>
         </div>
       </section>
+      <DiscoverCtaSection />
 
       <Footer />
     </main>

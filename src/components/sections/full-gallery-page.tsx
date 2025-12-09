@@ -5,13 +5,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { IEvent } from '@/types/event'
 
-export default function EventGalleryPage() {
+type EventCategory = 'All' | 'Cultural' | 'Sports' | 'Academic' | 'National' | 'Festival' | 'Competition'
+
+export default function FullGalleryPage() {
   const [events, setEvents] = useState<IEvent[]>([])
+  const [filteredEvents, setFilteredEvents] = useState<IEvent[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [selectedCategory, setSelectedCategory] = useState<EventCategory>('All')
+
+  const categories: EventCategory[] = ['All', 'Cultural', 'Sports', 'Academic', 'National', 'Festival', 'Competition']
 
   useEffect(() => {
     fetchEvents()
   }, [])
+
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      setFilteredEvents(events)
+    } else {
+      setFilteredEvents(events.filter(event => event.category === selectedCategory))
+    }
+  }, [selectedCategory, events])
 
   const fetchEvents = async () => {
     try {
@@ -20,8 +34,8 @@ export default function EventGalleryPage() {
       const data = await response.json()
       
       if (data.success) {
-        // Get only 6 events for homepage
-        setEvents(data.data.slice(0, 6))
+        setEvents(data.data)
+        setFilteredEvents(data.data)
       }
     } catch (error) {
       console.error('Fetch events error:', error)
@@ -31,32 +45,60 @@ export default function EventGalleryPage() {
   }
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display text-5xl md:text-6xl font-bold text-primary mb-4 tracking-tight">
+    <>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 tracking-tight">
             Event Gallery
-          </h2>
-          <p className="font-body text-xl text-gray-600 max-w-3xl mx-auto">
-            Relive the joy, excitement, and achievements of our vibrant school community
+          </h1>
+          <p className="font-body text-2xl md:text-3xl text-gray-600 max-w-4xl leading-tight">
+            Relive the joy, excitement, and achievements of our vibrant school community. 
+            Browse through our collection of memorable events and celebrations.
           </p>
         </div>
+      </section>
 
-        {/* Events Grid */}
-        <div className="mb-12">
+      {/* Category Filter */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8 border-t border-gray-200 sticky top-0 bg-white z-10 shadow-sm">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`font-body px-6 py-2 border-2 rounded-lg transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'border-primary bg-primary text-white' 
+                    : 'border-gray-300 text-gray-700 hover:border-primary'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Events Grid - NO BUTTON */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
           {isLoading ? (
             <div className="text-center py-20">
               <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
               <p className="mt-4 font-body text-gray-600">Loading events...</p>
             </div>
-          ) : events.length === 0 ? (
+          ) : filteredEvents.length === 0 ? (
             <div className="text-center py-20">
-              <p className="font-body text-xl text-gray-600">No events found.</p>
+              <p className="font-body text-2xl text-gray-600">
+                {selectedCategory === 'All' 
+                  ? 'No events found.' 
+                  : `No ${selectedCategory} events found.`}
+              </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {events.map((event) => (
+              {filteredEvents.map((event) => (
                 <Link 
                   key={event._id}
                   href={`/gallery/${event._id}`}
@@ -104,20 +146,7 @@ export default function EventGalleryPage() {
             </div>
           )}
         </div>
-
-        {/* View Full Gallery Button */}
-        {!isLoading && events.length > 0 && (
-          <div className="text-center">
-            <Link 
-              href="/gallery"
-              className="inline-flex items-center gap-2 font-body font-semibold text-white bg-primary px-8 py-4 rounded-lg hover:bg-[#6B0F6B] transition-all duration-300 hover:shadow-lg"
-            >
-              <span>View Full Gallery</span>
-              <span>→</span>
-            </Link>
-          </div>
-        )}
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
