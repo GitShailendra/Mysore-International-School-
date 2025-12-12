@@ -80,7 +80,7 @@ export default function FullGalleryPage() {
         </div>
       </section>
 
-      {/* Events Grid - NO BUTTON */}
+      {/* Events Grid */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           {isLoading ? (
@@ -121,13 +121,16 @@ export default function FullGalleryPage() {
                       {event.category}
                     </span>
 
-                    <div className="font-body text-sm text-gray-500 mb-2 mt-2">
-                      {new Date(event.date).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}
-                    </div>
+                    {/* Conditionally render date only if it exists */}
+                    {event.date && (
+                      <div className="font-body text-sm text-gray-500 mb-2 mt-2">
+                        {new Date(event.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </div>
+                    )}
 
                     <h3 className="font-display text-2xl font-semibold text-primary mb-2 group-hover:text-[#6B0F6B] transition-colors">
                       {event.title}

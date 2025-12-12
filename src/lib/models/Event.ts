@@ -10,7 +10,7 @@ const eventSchema = new Schema<IEvent>(
     },
     date: {
       type: Date,
-      required: [true, 'Please provide event date'],
+      // required: [true, 'Please provide event date'],
     },
     category: {
       type: String,
@@ -46,7 +46,7 @@ const eventSchema = new Schema<IEvent>(
     ],
     driveLink: {
       type: String,
-      required: [true, 'Please provide Google Drive link'],
+      // required: [true, 'Please provide Google Drive link'],
     },
     photoCount: {
       type: Number,

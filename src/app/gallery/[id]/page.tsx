@@ -101,7 +101,7 @@ export default function EventDetailPage() {
       <NewsEventsSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <main className="bg-white">
-        {/* Back to Gallery Button - Enhanced */}
+        {/* Back to Gallery Button */}
         <div className="pt-32 pb-8 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-6xl">
             <Link 
@@ -127,20 +127,34 @@ export default function EventDetailPage() {
               {event.title}
             </h1>
 
-            <div className="font-body text-lg text-gray-500 mb-4">
-              {new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </div>
+            {/* Conditionally render date only if it exists */}
+            {event.date && (
+              <div className="font-body text-lg text-gray-500 mb-4">
+                {new Date(event.date).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </div>
+            )}
 
             <p className="font-body text-xl text-gray-600 max-w-3xl">{event.description}</p>
 
-            <div className="mt-6">
-              <a href={event.driveLink} target="_blank" rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 font-body text-sm font-semibold text-white bg-primary px-6 py-3 rounded-lg hover:bg-[#6B0F6B] transition-colors">
-                <span>📁</span>
-                <span>View Full Album on Google Drive</span>
-                <span>→</span>
-              </a>
-            </div>
+            {/* Conditionally render drive link only if it exists */}
+            {event.driveLink && (
+              <div className="mt-6">
+                <a 
+                  href={event.driveLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 font-body text-sm font-semibold text-white bg-primary px-6 py-3 rounded-lg hover:bg-[#6B0F6B] transition-colors"
+                >
+                  <span>📁</span>
+                  <span>View Full Album on Google Drive</span>
+                  <span>→</span>
+                </a>
+              </div>
+            )}
           </div>
         </section>
 
@@ -150,12 +164,21 @@ export default function EventDetailPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {event.galleryImages.map((image, index) => (
-                <div key={index} className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group" 
-                    onClick={() => openImageModal(index)}>
-                  <Image src={image.url} alt={`${event.title} - Photo ${index + 1}`} fill 
-                        className="object-cover group-hover:scale-110 transition-transform duration-300" />
+                <div 
+                  key={index} 
+                  className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group" 
+                  onClick={() => openImageModal(index)}
+                >
+                  <Image 
+                    src={image.url} 
+                    alt={`${event.title} - Photo ${index + 1}`} 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-300" 
+                  />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-4xl">🔍</span>
+                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-4xl">
+                      🔍
+                    </span>
                   </div>
                 </div>
               ))}
@@ -177,26 +200,49 @@ export default function EventDetailPage() {
         </section>
       </main>
 
+      {/* Image Modal */}
       {showImageModal && event && (
-        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[60] p-4" 
-            onClick={() => setShowImageModal(false)}>
+        <div 
+          className="fixed inset-0 bg-black/95 flex items-center justify-center z-[60] p-4" 
+          onClick={() => setShowImageModal(false)}
+        >
           <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
-            <button onClick={() => setShowImageModal(false)} 
-                    className="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center">
+            {/* Close Button */}
+            <button 
+              onClick={() => setShowImageModal(false)} 
+              className="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"
+            >
               ×
             </button>
-            <button onClick={(e) => { e.stopPropagation(); prevImage(); }} 
-                    className="absolute left-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center">
+            
+            {/* Previous Button */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); prevImage(); }} 
+              className="absolute left-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"
+            >
               ‹
             </button>
-            <button onClick={(e) => { e.stopPropagation(); nextImage(); }} 
-                    className="absolute right-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center">
+            
+            {/* Next Button */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); nextImage(); }} 
+              className="absolute right-4 text-white text-4xl hover:text-gray-300 transition-colors z-20 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"
+            >
               ›
             </button>
+            
+            {/* Image */}
             <div className="relative w-full h-full">
-              <Image src={event.galleryImages[selectedImageIndex].url} alt={`${event.title} - Photo ${selectedImageIndex + 1}`} 
-                    fill className="object-contain" onClick={(e) => e.stopPropagation()} />
+              <Image 
+                src={event.galleryImages[selectedImageIndex].url} 
+                alt={`${event.title} - Photo ${selectedImageIndex + 1}`} 
+                fill 
+                className="object-contain" 
+                onClick={(e) => e.stopPropagation()} 
+              />
             </div>
+            
+            {/* Image Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full font-body text-sm">
               {selectedImageIndex + 1} / {event.galleryImages.length}
             </div>

@@ -50,10 +50,10 @@ export async function POST(request: NextRequest) {
 
     // Extract form fields
     const title = formData.get('title') as string
-    const date = formData.get('date') as string
+    const date = formData.get('date') as string | null
     const category = formData.get('category') as string
     const description = formData.get('description') as string
-    const driveLink = formData.get('driveLink') as string
+    const driveLink = formData.get('driveLink') as string | null
     const thumbnail = formData.get('thumbnail') as File
     
     // Extract gallery images
@@ -67,8 +67,8 @@ export async function POST(request: NextRequest) {
       index++
     }
 
-    // Validate required fields
-    if (!title || !date || !category || !description || !driveLink) {
+    // Validate required fields only (removed date and driveLink)
+    if (!title || !category || !description) {
       return NextResponse.json(
         { success: false, message: 'Missing required fields' },
         { status: 400 }
@@ -95,16 +95,26 @@ export async function POST(request: NextRequest) {
     // Upload gallery images
     const galleryResults = await uploadMultipleImages(galleryImages, 'events/gallery')
 
-    // Create event
-    const event = await Event.create({
+    // Create event object with optional fields
+    const eventData: any = {
       title,
-      date: new Date(date),
       category,
       description,
-      driveLink,
       thumbnail: thumbnailResult,
       galleryImages: galleryResults,
-    })
+    }
+
+    // Add optional fields only if provided
+    if (date) {
+      eventData.date = new Date(date)
+    }
+    
+    if (driveLink) {
+      eventData.driveLink = driveLink
+    }
+
+    // Create event
+    const event = await Event.create(eventData)
 
     return NextResponse.json({
       success: true,

@@ -3,18 +3,19 @@ import connectDB from '@/lib/db'
 import Event from '@/lib/models/Event'
 import { uploadImage, uploadMultipleImages, deleteImage } from '@/lib/uploadToCloudinary'
 
-// ✅ Define the valid categories type
 type EventCategory = 'Cultural' | 'Sports' | 'Academic' | 'National' | 'Festival' | 'Competition'
 
 // GET - Fetch single event
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // ✅ Type as Promise
 ) {
   try {
     await connectDB()
 
-    const event = await Event.findById(params.id)
+    const { id } = await params // ✅ Await params first
+
+    const event = await Event.findById(id)
 
     if (!event) {
       return NextResponse.json(
@@ -39,12 +40,14 @@ export async function GET(
 // PUT - Update event
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // ✅ Type as Promise
 ) {
   try {
     await connectDB()
 
-    const event = await Event.findById(params.id)
+    const { id } = await params // ✅ Await params first
+
+    const event = await Event.findById(id)
 
     if (!event) {
       return NextResponse.json(
@@ -57,10 +60,10 @@ export async function PUT(
 
     // Extract form fields
     const title = formData.get('title') as string
-    const date = formData.get('date') as string
-    const category = formData.get('category') as EventCategory // ✅ Type assertion
+    const date = formData.get('date') as string | null
+    const category = formData.get('category') as EventCategory
     const description = formData.get('description') as string
-    const driveLink = formData.get('driveLink') as string
+    const driveLink = formData.get('driveLink') as string | null
     const thumbnail = formData.get('thumbnail') as File | null
     
     // Extract gallery images
@@ -76,27 +79,29 @@ export async function PUT(
 
     // Update basic fields
     if (title) event.title = title
-    if (date) event.date = new Date(date)
+    if (date) {
+      event.date = new Date(date)
+    }
     if (category) event.category = category
     if (description) event.description = description
-    if (driveLink) event.driveLink = driveLink
+    
+    // Handle driveLink - can be set or removed
+    if (driveLink !== null) {
+      event.driveLink = driveLink
+    }
 
     // Update thumbnail if new one provided
     if (thumbnail && thumbnail.size > 0) {
-      // Delete old thumbnail
       await deleteImage(event.thumbnail.public_id)
-      // Upload new thumbnail
       const thumbnailResult = await uploadImage(thumbnail, 'events/thumbnails')
       event.thumbnail = thumbnailResult
     }
 
     // Update gallery images if new ones provided
     if (newGalleryImages.length > 0) {
-      // Delete old gallery images
       for (const image of event.galleryImages) {
         await deleteImage(image.public_id)
       }
-      // Upload new gallery images
       const galleryResults = await uploadMultipleImages(newGalleryImages, 'events/gallery')
       event.galleryImages = galleryResults
     }
@@ -120,12 +125,14 @@ export async function PUT(
 // DELETE - Delete event
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // ✅ Type as Promise
 ) {
   try {
     await connectDB()
 
-    const event = await Event.findById(params.id)
+    const { id } = await params // ✅ Await params first
+
+    const event = await Event.findById(id)
 
     if (!event) {
       return NextResponse.json(
@@ -143,7 +150,7 @@ export async function DELETE(
     }
 
     // Delete event from database
-    await Event.findByIdAndDelete(params.id)
+    await Event.findByIdAndDelete(id)
 
     return NextResponse.json({
       success: true,
