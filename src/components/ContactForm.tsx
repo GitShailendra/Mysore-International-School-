@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react'
 
 interface ContactFormProps {
   className?: string
@@ -14,34 +13,58 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
     email: '',
     phone: '',
     occupation: '',
-    subject: '',
+    category: '',
     source: '',
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  const categories = ['Admission', 'Inquiry', 'Visit', 'Other']
+  const sources = ['Website', 'Facebook', 'Instagram', 'Newspaper', 'Friends/Family', 'Google Search', 'Other']
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Add your API call here
-    console.log('Form submitted:', formData)
-
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false)
-      alert('Message sent successfully!')
-      setFormData({
-        studentName: '',
-        parentName: '',
-        email: '',
-        phone: '',
-        occupation: '',
-        subject: '',
-        source: '',
-        message: ''
+    setError('')
+    
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
       })
-    }, 1500)
+
+      const data = await response.json()
+
+      if (data.success) {
+        setSuccess(true)
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setFormData({
+            studentName: '',
+            parentName: '',
+            email: '',
+            phone: '',
+            occupation: '',
+            category: '',
+            source: '',
+            message: ''
+          })
+          setSuccess(false)
+        }, 3000)
+      } else {
+        setError(data.message || 'Failed to submit inquiry')
+      }
+    } catch (error) {
+      console.error('Submit error:', error)
+      setError('Network error. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -53,12 +76,29 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
 
   return (
     <div className={`border-2 border-gray-200 p-8 ${className}`}>
+      {/* Success Message */}
+      {success && (
+        <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+          <p className="font-semibold">Success!</p>
+          <p className="text-sm">Your message has been sent. We'll get back to you soon.</p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          <p className="font-semibold">Error</p>
+          <p className="text-sm">{error}</p>
+        </div>
+      )}
+
       <h2 className="font-display text-3xl font-semibold text-primary mb-2">
         Get in Touch
       </h2>
       <p className="font-body text-gray-600 mb-8">
         Fill out the form below and we'll get back to you soon
       </p>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Student Name */}
         <div>
@@ -145,17 +185,16 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
             Subject *
           </label>
           <select
-            name="subject"
+            name="category"
             required
             className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-            value={formData.subject}
+            value={formData.category}
             onChange={handleChange}
           >
             <option value="">Select a subject</option>
-            <option value="Admission">Admission</option>
-            <option value="Inquiry">Inquiry</option>
-            <option value="Visit">Visit</option>
-            <option value="Other">Other</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
           </select>
         </div>
 
@@ -172,13 +211,9 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
             onChange={handleChange}
           >
             <option value="">Select an option</option>
-            <option value="Website">Website</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Instagram">Instagram</option>
-            <option value="Newspaper">Newspaper</option>
-            <option value="Friends/Family">Friends/Family</option>
-            <option value="Google Search">Google Search</option>
-            <option value="Other">Other</option>
+            {sources.map((source) => (
+              <option key={source} value={source}>{source}</option>
+            ))}
           </select>
         </div>
 
@@ -205,7 +240,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || success}
           className="w-full py-4 px-6 bg-primary text-white font-body font-semibold hover:bg-[#6B0F6B] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
@@ -216,6 +251,8 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
               </svg>
               Sending...
             </span>
+          ) : success ? (
+            'Submitted Successfully!'
           ) : (
             'Contact Us'
           )}
