@@ -375,13 +375,15 @@ export default function AdminEventGalleryPage() {
                             {event.photoCount} Photos
                           </span>
                         </div>
-                        <div className="font-body text-xs sm:text-sm text-gray-500 mb-2">
-                          {new Date(event.date).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                          })}
-                        </div>
+                        {event.date && (
+    <div className="font-body text-xs sm:text-sm text-gray-500 mb-2">
+      {new Date(event.date).toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      })}
+    </div>
+  )}
                         <h3 className="font-display text-xl sm:text-2xl font-semibold text-primary mb-2">
                           {event.title}
                         </h3>
@@ -420,14 +422,16 @@ export default function AdminEventGalleryPage() {
                           </div>
                         </div>
 
-                        <a
-                          href={event.driveLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-body text-xs sm:text-sm text-primary hover:text-[#6B0F6B] transition-colors inline-block mb-3 sm:mb-4"
-                        >
-                          View Full Album on Google Drive →
-                        </a>
+                         {event.driveLink && (
+    <a
+      href={event.driveLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-body text-xs sm:text-sm text-primary hover:text-[#6B0F6B] transition-colors inline-block mb-3 sm:mb-4"
+    >
+      View Full Album on Google Drive →
+    </a>
+  )}
 
                         {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
@@ -512,11 +516,10 @@ export default function AdminEventGalleryPage() {
 
                 <div>
                   <label className="block font-body text-sm font-medium text-gray-700 mb-2">
-                    Event Date *
+                    Event Date (Optional)
                   </label>
                   <input
                     type="date"
-                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
@@ -638,11 +641,10 @@ export default function AdminEventGalleryPage() {
 
                 <div>
                   <label className="block font-body text-sm font-medium text-gray-700 mb-2">
-                    Google Drive Album Link *
+                    Google Drive Album Link (Optional)
                   </label>
                   <input
                     type="url"
-                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                     placeholder="Paste the shareable link to your Google Drive folder"
                     value={formData.driveLink}
@@ -710,11 +712,10 @@ export default function AdminEventGalleryPage() {
 
                 <div>
                   <label className="block font-body text-sm font-medium text-gray-700 mb-2">
-                    Event Date *
+                    Event Date  (Optional)
                   </label>
                   <input
                     type="date"
-                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
@@ -835,11 +836,10 @@ export default function AdminEventGalleryPage() {
 
                 <div>
                   <label className="block font-body text-sm font-medium text-gray-700 mb-2">
-                    Google Drive Album Link *
+                    Google Drive Album Link (Optional)
                   </label>
                   <input
                     type="url"
-                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                     placeholder="Paste the shareable link to your Google Drive folder"
                     value={formData.driveLink}
