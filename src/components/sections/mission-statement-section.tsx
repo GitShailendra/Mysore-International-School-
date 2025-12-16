@@ -38,15 +38,7 @@ const MissionStatementSection = () => {
           >
             At Mysore International School, we aspire to nurture empathetic and innovative global citizens who excel as discerning thinkers, collaborative problem solvers, and proactive contributors to society. We provide a world-class education that nurtures the physical, intellectual, emotional, social, and cultural aspects of our students, equipping each one with the tools necessary to transform into a well-rounded, highly educated, and productive adult.
           </motion.p>
-          <motion.a
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            href="#"
-            className="inline-block bg-accent text-primary font-semibold py-3 px-8 rounded-[24px] text-lg transition-colors duration-300 hover:bg-[#B3C229]"
-          >
-            Explore
-          </motion.a>
+        
         </div>
       </div>
       <motion.div

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { X, Play, Calendar, MapPin, Clock, ArrowRight } from "lucide-react";
+import { X, Play, Calendar, MapPin, Clock } from "lucide-react";
 
 interface NewsEventsSidebarProps {
   isOpen: boolean;
@@ -52,7 +52,7 @@ const DetailModal = ({
       {/* Modal Backdrop */}
       <div
         className={`fixed inset-0 bg-black z-[60] transition-opacity duration-300 ${
-          isOpen ? 'opacity-70' : 'opacity-0 pointer-events-none'
+          isOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
         aria-hidden="true"
@@ -66,7 +66,7 @@ const DetailModal = ({
         onClick={onClose}
       >
         <div
-          className={`bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ${
+          className={`bg-white max-w-3xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ${
             isOpen ? 'scale-100 translate-y-0' : 'scale-95 translate-y-4'
           }`}
           onClick={(e) => e.stopPropagation()}
@@ -74,54 +74,37 @@ const DetailModal = ({
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          {/* Modal Header Image */}
-          <div className="relative h-56 md:h-72 w-full">
-            <Image
-              src={item.imageUrl}
-              alt={item.title}
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-105"
-              aria-label="Close modal"
-            >
-              <X className="h-5 w-5 text-primary" />
-            </button>
-            
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-6 right-6 p-2 hover:bg-gray-100 transition-colors z-10"
+            aria-label="Close modal"
+          >
+            <X className="h-5 w-5 text-gray-700" />
+          </button>
+
+          {/* Modal Body */}
+          <div className="p-12 overflow-y-auto max-h-[90vh]">
             {/* Type Badge */}
-            <div className="absolute top-4 left-4">
-              <span className={`px-3 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase shadow-lg ${
-                item.type === "news" 
-                  ? "bg-primary text-white" 
-                  : "bg-green-500 text-white"
-              }`}>
+            <div className="mb-6">
+              <span className="font-body text-xs font-semibold text-primary uppercase tracking-widest">
                 {item.type}
               </span>
             </div>
+
+            {/* Title */}
+            <h2 
+              id="modal-title"
+              className="font-display font-bold text-4xl text-primary mb-8 leading-tight"
+            >
+              {item.title}
+            </h2>
             
-            {/* Title on Image */}
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <h2 
-                id="modal-title"
-                className="font-display font-bold text-xl md:text-2xl text-white leading-tight drop-shadow-lg"
-              >
-                {item.title}
-              </h2>
-            </div>
-          </div>
-          
-          {/* Modal Body */}
-          <div className="p-6 overflow-y-auto max-h-[calc(90vh-18rem)]">
             {/* Meta Information */}
-            <div className="flex flex-wrap gap-4 mb-6 pb-4 border-b border-gray-200">
+            <div className="flex flex-wrap gap-6 mb-8 pb-8 border-b border-gray-200">
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Calendar className="h-4 w-4 text-primary" />
-                <span>{new Date(item.date).toLocaleDateString('en-US', {
+                <Calendar className="h-4 w-4" />
+                <span className="font-body">{new Date(item.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
@@ -129,32 +112,40 @@ const DetailModal = ({
               </div>
               {item.type === "event" && item.time && (
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Clock className="h-4 w-4 text-primary" />
-                  <span>{item.time}</span>
+                  <Clock className="h-4 w-4" />
+                  <span className="font-body">{item.time}</span>
                 </div>
               )}
               {item.type === "event" && item.location && (
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  <span>{item.location}</span>
+                  <MapPin className="h-4 w-4" />
+                  <span className="font-body">{item.location}</span>
                 </div>
               )}
             </div>
+
+            {/* Image */}
+            <div className="relative h-80 w-full mb-8">
+              <Image
+                src={item.imageUrl}
+                alt={item.title}
+                fill
+                className="object-cover"
+              />
+            </div>
             
             {/* Content */}
-            <div className="prose prose-sm max-w-none">
-              <div className="space-y-4">
-                {item.fullContent.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="text-gray-700 font-body leading-relaxed">
-                    {paragraph.split('\n').map((line, lineIdx) => (
-                      <span key={lineIdx}>
-                        {line}
-                        {lineIdx < paragraph.split('\n').length - 1 && <br />}
-                      </span>
-                    ))}
-                  </p>
-                ))}
-              </div>
+            <div className="space-y-6">
+              {item.fullContent.split('\n\n').map((paragraph, idx) => (
+                <p key={idx} className="text-gray-700 font-body text-lg leading-relaxed">
+                  {paragraph.split('\n').map((line, lineIdx) => (
+                    <span key={lineIdx}>
+                      {line}
+                      {lineIdx < paragraph.split('\n').length - 1 && <br />}
+                    </span>
+                  ))}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -189,16 +180,16 @@ const FeaturedVideo = () => {
   }, []);
 
   return (
-    <div className="mb-8">
-      <div className="mb-4">
-        <h3 className="font-display text-xl font-semibold text-primary mb-2">
+    <div className="mb-12">
+      <div className="mb-6">
+        <h3 className="font-display text-2xl font-semibold text-primary mb-2">
           Featured Video
         </h3>
-        <p className="text-sm text-gray-600 font-body leading-relaxed">
+        <p className="text-gray-600 font-body">
           Mornings with Mr. Mulder
         </p>
       </div>
-      <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-md">
+      <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
         {!isPlaying && (
           <>
             <Image
@@ -210,10 +201,10 @@ const FeaturedVideo = () => {
             <button
               onClick={handlePlay}
               aria-label="Play video: Mornings with Mr. Mulder"
-              className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 z-10 group hover:bg-opacity-50 transition-all"
+              className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 z-10 transition-all"
             >
-              <div className="bg-green-500 p-4 rounded-full transition-transform group-hover:scale-110 shadow-lg">
-                <Play className="h-6 w-6 text-white fill-white" />
+              <div className="bg-white p-5 transition-transform hover:scale-105">
+                <Play className="h-8 w-8 text-primary fill-primary" />
               </div>
             </button>
           </>
@@ -289,148 +280,138 @@ const NewsEventsSidebar: React.FC<NewsEventsSidebarProps> = ({ isOpen, onClose }
       
       {/* Sidebar Panel */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full bg-white z-50 shadow-2xl transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full w-full bg-white z-50 transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
         aria-label="News & Events"
         role="dialog"
         aria-modal="true"
       >
         <div className="h-full flex flex-col">
           {/* Header */}
-          <div className="bg-primary px-6 py-6 flex-shrink-0">
-            <div className="flex items-start justify-between mb-6">
+          <div className="px-8 py-8 flex-shrink-0 border-b border-gray-200">
+            <div className="flex items-start justify-between mb-8">
               <div>
-                <h2 className="font-display font-bold text-2xl md:text-3xl text-white mb-2">
+                <h2 className="font-display font-bold text-5xl text-primary mb-3 tracking-tight">
                   News & Events
                 </h2>
-                <p className="text-white/90 text-sm font-body">
-                  Stay connected with the Mysore International School community
+                <p className="text-gray-600 font-body">
+                  Stay connected with our community
                 </p>
               </div>
               <button
                 onClick={onClose}
                 aria-label="Close news & events"
-                className="text-white hover:text-gray-200 transition-colors p-1 flex-shrink-0"
+                className="text-gray-700 hover:text-primary transition-colors p-2"
               >
                 <X size={28} />
               </button>
             </div>
             
-            {/* Filter Pills */}
-<div className="flex gap-2 flex-wrap">
-  <button
-    onClick={() => setActiveFilter("all")}
-    className={`px-4 py-2 rounded-full font-body font-semibold text-sm transition-all ${
-      activeFilter === "all"
-        ? "bg-white text-primary shadow-md"
-        : "bg-white/20 text-white hover:bg-white/30"
-    }`}
-  >
-    All
-  </button>
-  <button
-    onClick={() => setActiveFilter("news")}
-    className={`px-4 py-2 rounded-full font-body font-semibold text-sm transition-all ${
-      activeFilter === "news"
-        ? "bg-white text-primary shadow-md"
-        : "bg-white/20 text-white hover:bg-white/30"
-    }`}
-  >
-    News
-  </button>
-  <button
-    onClick={() => setActiveFilter("event")}
-    className={`px-4 py-2 rounded-full font-body font-semibold text-sm transition-all ${
-      activeFilter === "event"
-        ? "bg-white text-primary shadow-md"
-        : "bg-white/20 text-white hover:bg-white/30"
-    }`}
-  >
-    Events
-  </button>
-</div>
-
+            {/* Filter Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => setActiveFilter("all")}
+                className={`px-6 py-2 font-body font-medium border-2 transition-all ${
+                  activeFilter === "all"
+                    ? "border-primary text-primary"
+                    : "border-gray-300 text-gray-700 hover:border-gray-400"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setActiveFilter("news")}
+                className={`px-6 py-2 font-body font-medium border-2 transition-all ${
+                  activeFilter === "news"
+                    ? "border-primary text-primary"
+                    : "border-gray-300 text-gray-700 hover:border-gray-400"
+                }`}
+              >
+                News
+              </button>
+              <button
+                onClick={() => setActiveFilter("event")}
+                className={`px-6 py-2 font-body font-medium border-2 transition-all ${
+                  activeFilter === "event"
+                    ? "border-primary text-primary"
+                    : "border-gray-300 text-gray-700 hover:border-gray-400"
+                }`}
+              >
+                Events
+              </button>
+            </div>
           </div>
 
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto">
-            <div className="px-6 py-8">
+            <div className="px-8 py-12">
               {/* Featured Video */}
               <FeaturedVideo />
 
               {/* Divider */}
-              <div className="border-t border-gray-200 my-8"></div>
+              <div className="border-t border-gray-200 my-12"></div>
 
               {/* Loading State */}
               {isLoading && (
-                <div className="text-center py-12">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                  <p className="mt-4 text-gray-600 font-body">Loading...</p>
+                <div className="text-center py-20">
+                  <div className="inline-block animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent"></div>
+                  <p className="mt-6 text-gray-600 font-body">Loading...</p>
                 </div>
               )}
 
               {/* News & Events List */}
               {!isLoading && (
-                <div className="space-y-6">
-                  {filteredItems.map((item) => (
+                <div className="space-y-0">
+                  {filteredItems.map((item, index) => (
                     <article 
                       key={item._id} 
-                      className="group cursor-pointer"
+                      className="group cursor-pointer py-8 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors"
                       onClick={() => handleItemClick(item)}
                     >
-                      <div className="block">
-                        <div className="flex gap-4">
-                          {/* Thumbnail */}
-                          <div className="relative w-32 h-24 flex-shrink-0 rounded-lg overflow-hidden shadow-sm">
-                            <Image
-                              src={item.imageUrl}
-                              alt={item.title}
-                              fill
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                            <div className="absolute top-2 left-2">
-                              <span className={`px-2 py-1 rounded text-xs font-bold tracking-wider uppercase ${
-                                item.type === "news" 
-                                  ? "bg-primary text-white" 
-                                  : "bg-green-500 text-white"
-                              }`}>
-                                {item.type}
-                              </span>
-                            </div>
+                      <div className="flex gap-6">
+                        {/* Thumbnail */}
+                        <div className="relative w-40 h-28 flex-shrink-0 overflow-hidden bg-gray-100">
+                          <Image
+                            src={item.imageUrl}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="mb-3">
+                            <span className="font-body text-xs font-semibold text-primary uppercase tracking-widest">
+                              {item.type}
+                            </span>
                           </div>
-                          
-                          {/* Content */}
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-display font-semibold text-base leading-tight text-primary mb-2 group-hover:text-[#6B0F6B] transition-colors line-clamp-2">
-                              {item.title}
-                            </h3>
-                            <div className="flex flex-col gap-1 text-xs text-gray-600 font-body">
-                              <div className="flex items-center gap-1.5">
-                                <Calendar className="h-3 w-3" />
-                                <span>{new Date(item.date).toLocaleDateString('en-US', {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric'
-                                })}</span>
-                              </div>
-                              {item.type === "event" && item.time && (
-                                <div className="flex items-center gap-1.5">
-                                  <Clock className="h-3 w-3" />
-                                  <span>{item.time}</span>
-                                </div>
-                              )}
-                              {item.type === "event" && item.location && (
-                                <div className="flex items-center gap-1.5">
-                                  <MapPin className="h-3 w-3" />
-                                  <span className="truncate">{item.location}</span>
-                                </div>
-                              )}
+                          <h3 className="font-display font-semibold text-xl leading-tight text-primary mb-3 group-hover:text-[#6B0F6B] transition-colors">
+                            {item.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-4 text-sm text-gray-600 font-body">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4" />
+                              <span>{new Date(item.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                              })}</span>
                             </div>
+                            {item.type === "event" && item.time && (
+                              <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4" />
+                                <span>{item.time}</span>
+                              </div>
+                            )}
+                            {item.type === "event" && item.location && (
+                              <div className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4" />
+                                <span>{item.location}</span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
-                      {filteredItems.indexOf(item) < filteredItems.length - 1 && (
-                        <div className="border-t border-gray-200 mt-6"></div>
-                      )}
                     </article>
                   ))}
                 </div>
@@ -438,8 +419,8 @@ const NewsEventsSidebar: React.FC<NewsEventsSidebarProps> = ({ isOpen, onClose }
 
               {/* Empty State */}
               {!isLoading && filteredItems.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-600 font-body text-sm">
+                <div className="text-center py-20">
+                  <p className="text-gray-600 font-body">
                     No {activeFilter === "all" ? "items" : activeFilter} to display.
                   </p>
                 </div>

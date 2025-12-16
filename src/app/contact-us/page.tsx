@@ -3,227 +3,196 @@ import HeaderNavigation from '@/components/sections/header-navigation'
 import Footer from '@/components/sections/footer'
 import MobileNewsEventsWrapper from '@/components/mobile-news-events-wrapper'
 import DiscoverCtaSection from '@/components/sections/discover-cta-section'
+import ContactForm from '@/components/ContactForm'
+import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react'
+
 export const metadata: Metadata = {
   title: 'Contact Us - Mysore International School',
   description: 'Get in touch with Mysore International School - contact information, location, and inquiry details',
 }
 
-export default function ContactUsPage() {
-  const contactInfo = [
-    {
-      title: "School Address",
-      details: [
-        "Mysore International School",
-        "92/1-5, HD Kote Road",
-        "Rayanakere Post, SH 33",
-        "Karnataka 570008, India"
-      ],
-      icon: "📍"
-    },
-    {
-      title: "Phone Numbers",
-      details: [
-        "Main Office: +91 XXX XXX XXXX",
-        "Admissions: +91 XXX XXX XXXX",
-        "Emergency: +91 XXX XXX XXXX"
-      ],
-      icon: "📞"
-    },
-    {
-      title: "Email Addresses",
-      details: [
-        "General: info@mis.edu.in",
-        "Admissions: admissions@mis.edu.in",
-        "Support: support@mis.edu.in"
-      ],
-      icon: "📧"
-    }
-  ]
-
-  const officeHours = [
-    { day: "Monday - Friday", hours: "8:00 AM - 5:00 PM" },
-    { day: "Saturday", hours: "9:00 AM - 1:00 PM" },
-    { day: "Sunday", hours: "Closed" }
-  ]
-
-  const departments = [
-    {
-      name: "Admissions Office",
-      contact: "admissions@mis.edu.in",
-      phone: "+91 XXX XXX XXXX",
-      description: "For admission inquiries and application support"
-    },
-    {
-      name: "Academic Office",
-      contact: "academics@mis.edu.in",
-      phone: "+91 XXX XXX XXXX",
-      description: "For academic programs and curriculum information"
-    },
-    {
-      name: "Student Services",
-      contact: "students@mis.edu.in",
-      phone: "+91 XXX XXX XXXX",
-      description: "For student support and counseling services"
-    },
-    {
-      name: "Alumni Relations",
-      contact: "alumni@mis.edu.in",
-      phone: "+91 XXX XXX XXXX",
-      description: "For alumni connections and events"
-    }
-  ]
-
+export default function ContactPage() {
   return (
     <main className="min-h-screen bg-white">
       <HeaderNavigation />
       <MobileNewsEventsWrapper />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-secondary via-secondary to-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4">
-              Contact Us
-            </h1>
-            <p className="text-xl md:text-2xl font-body max-w-3xl mx-auto">
-              We'd Love to Hear From You
-            </p>
-          </div>
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
+        <div className="container mx-auto max-w-6xl">
+          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 tracking-tight">
+            Contact Us
+          </h1>
+          <p className="font-body text-2xl md:text-3xl text-gray-600 max-w-4xl leading-tight">
+            Get in touch with Mysore International School. We're here to answer your questions and help you learn more about our community.
+          </p>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-
-            {/* Contact Cards */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              {contactInfo.map((info, index) => (
-                <div key={index} className="bg-white border-2 border-primary rounded-lg p-6 text-center">
-                  <div className="text-4xl mb-4">{info.icon}</div>
-                  <h3 className="text-xl font-bold text-primary mb-4">
-                    {info.title}
-                  </h3>
-                  <div className="space-y-2">
-                    {info.details.map((detail, detailIndex) => (
-                      <p key={detailIndex} className="text-gray-700">
-                        {detail}
-                      </p>
-                    ))}
+      {/* Contact Information Grid */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-16">
+            {/* Left Column - Contact Details */}
+            <div className="space-y-12">
+              {/* Address */}
+              <div className="pb-12 border-b border-gray-200">
+                <div className="flex items-start gap-4 mb-6">
+                  <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h2 className="font-display text-2xl font-semibold text-primary mb-4">
+                      Visit Us
+                    </h2>
+                    <address className="font-body text-lg text-gray-700 not-italic leading-relaxed">
+                      Mysore International School<br />
+                      92/1-3, HD Kote Road<br />
+                      Rayanakere Post<br />
+                      5 Minutes from Srirampura Ring Road<br />
+                      Mysore – 570008
+                    </address>
+                    <a
+                      href="https://maps.google.com/?q=Mysore+International+School"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-6 font-body font-medium text-primary hover:text-[#6B0F6B] transition-colors"
+                    >
+                      Get Directions
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            {/* Office Hours & Map */}
-            <div className="grid md:grid-cols-2 gap-12 mb-16">
-
-              {/* Office Hours */}
-              <div className="bg-secondary rounded-lg p-8">
-                <h2 className="text-2xl font-bold text-primary mb-6 text-center">
-                  Office Hours
+              {/* Admissions Contact */}
+              <div className="pb-12 border-b border-gray-200">
+                <h2 className="font-display text-2xl font-semibold text-primary mb-6">
+                  Admissions
                 </h2>
                 <div className="space-y-4">
-                  {officeHours.map((schedule, index) => (
-                    <div key={index} className="flex justify-between items-center py-2 border-b border-primary/20 last:border-b-0">
-                      <span className="font-semibold text-primary">{schedule.day}</span>
-                      <span className="text-gray-700">{schedule.hours}</span>
+                  <div>
+                    <div className="font-body text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                      Admission Officer
                     </div>
-                  ))}
-                </div>
-                <div className="mt-6 p-4 bg-white rounded-lg">
-                  <p className="text-sm text-gray-600 text-center">
-                    <strong>Note:</strong> Campus remains open for students during regular school hours.
-                    Administrative offices are available during the hours listed above.
-                  </p>
+                    <div className="font-body text-lg text-gray-700 mb-1">
+                      Ms. Ranjitha
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-primary flex-shrink-0" />
+                    <a
+                      href="mailto:admissions@mysoreinternationalschool.com"
+                      className="font-body text-gray-700 hover:text-primary transition-colors"
+                    >
+                      admissions@mysoreinternationalschool.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                    <div className="font-body text-gray-700">
+                      <a href="tel:+918884300400" className="hover:text-primary transition-colors">
+                        +91 8884 300 400
+                      </a>
+                      {' / '}
+                      <a href="tel:+918277237785" className="hover:text-primary transition-colors">
+                        +91 8277 237 785
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Location Map Placeholder */}
-              <div className="bg-white border-2 border-primary rounded-lg p-8">
-                <h2 className="text-2xl font-bold text-primary mb-6 text-center">
-                  Our Location
+              {/* Accounts Contact */}
+              <div className="pb-12 border-b border-gray-200">
+                <h2 className="font-display text-2xl font-semibold text-primary mb-6">
+                  Accounts & Finance
                 </h2>
-                <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                  <div className="text-center text-gray-500">
-                    <div className="text-6xl mb-4">🗺️</div>
-                    <p className="font-semibold">Interactive Map</p>
-                    <p className="text-sm">Coming Soon</p>
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-body text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                      Accountant
+                    </div>
+                    <div className="font-body text-lg text-gray-700 mb-1">
+                      Mrs. Parameswari
+                    </div>
                   </div>
-                </div>
-                <div className="text-center">
-                  <p className="text-gray-700 mb-4">
-                    Located on HD Kote Road, easily accessible from major Mysore roads.
-                  </p>
-                  <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
-                      Get Directions
-                    </button>
-                    <button className="border-2 border-primary text-primary px-6 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">
-                      Virtual Tour
-                    </button>
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-primary flex-shrink-0" />
+                    <a
+                      href="mailto:accounts@mysoreinternationalschool.com"
+                      className="font-body text-gray-700 hover:text-primary transition-colors"
+                    >
+                      accounts@mysoreinternationalschool.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                    <div className="font-body text-gray-700">
+                      <a href="tel:08212971010" className="hover:text-primary transition-colors">
+                        0821 2971010
+                      </a>
+                      {' / '}
+                      <a href="tel:+918884414356" className="hover:text-primary transition-colors">
+                        8884 414 356
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
 
-            </div>
-
-            {/* Department Contacts */}
-            <div className="bg-white border-2 border-primary rounded-lg p-8 md:p-12 mb-16">
-              <h2 className="text-3xl font-bold text-primary mb-8 text-center">
-                Department Contacts
-              </h2>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                {departments.map((dept, index) => (
-                  <div key={index} className="bg-gray-50 rounded-lg p-6">
-                    <h3 className="text-lg font-bold text-primary mb-2">
-                      {dept.name}
-                    </h3>
-                    <p className="text-gray-700 text-sm mb-4">
-                      {dept.description}
-                    </p>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center">
-                        <span className="text-primary mr-2">📧</span>
-                        <span>{dept.contact}</span>
+              {/* Office Hours */}
+              <div>
+                <div className="flex items-start gap-4">
+                  <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h2 className="font-display text-2xl font-semibold text-primary mb-4">
+                      Office Hours
+                    </h2>
+                    <div className="font-body text-lg text-gray-700 space-y-2">
+                      <div className="flex justify-between gap-8">
+                        <span>Monday - Friday</span>
+                        <span className="font-medium">8:00 AM - 4:00 PM</span>
                       </div>
-                      <div className="flex items-center">
-                        <span className="text-primary mr-2">📞</span>
-                        <span>{dept.phone}</span>
+                      <div className="flex justify-between gap-8">
+                        <span>Saturday</span>
+                        <span className="font-medium">8:00 AM - 12:00 PM</span>
+                      </div>
+                      <div className="flex justify-between gap-8">
+                        <span>Sunday</span>
+                        <span className="font-medium">Closed</span>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Form Placeholder */}
-            <div className="bg-secondary rounded-lg p-8 md:p-12 text-center">
-              <h2 className="text-3xl font-bold text-primary mb-6">
-                Send Us a Message
-              </h2>
-              <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-                Have questions about admissions, academics, or anything else? We'd love to hear from you.
-                Send us a message and we'll get back to you as soon as possible.
-              </p>
-
-              <div className="bg-white rounded-lg p-8 max-w-2xl mx-auto">
-                <div className="text-center text-gray-500">
-                  <div className="text-4xl mb-4">📝</div>
-                  <p className="font-semibold mb-2">Contact Form</p>
-                  <p className="text-sm">Interactive contact form coming soon</p>
-                  <p className="text-xs mt-4">
-                    In the meantime, please reach out to us using the contact information above.
-                  </p>
                 </div>
               </div>
             </div>
-            
+
+            {/* Right Column - Contact Form */}
+            <ContactForm />
           </div>
         </div>
       </section>
+
+      {/* Map Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="font-display text-4xl font-semibold text-primary mb-8">
+            Find Us
+          </h2>
+          <div className="border-2 border-gray-200 bg-white overflow-hidden aspect-[16/9]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.123456789!2d76.6234567!3d12.2987654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDE3JzU1LjYiTiA3NsKwMzcnMjQuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Mysore International School Location"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       <DiscoverCtaSection />
 
       <Footer />

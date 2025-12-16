@@ -105,7 +105,7 @@ const FounderSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              href="#"
+              href="/about-us/founder-chairman"
               className="inline-block border-2 border-primary text-primary font-semibold py-3 px-8 rounded-[24px] text-lg transition-all duration-300 hover:bg-primary hover:text-white"
             >
               Learn More About Our Founder
