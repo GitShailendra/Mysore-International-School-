@@ -20,7 +20,7 @@ async function connectDB() {
     return cached.conn;
   }
 
-  const MONGODB_URI = process.env.MONGODB_URI;
+  const MONGODB_URI = "mongodb+srv://shailendrakumarsrgi_db_user:3jbrTLTnH3Mvl7n1@cluster0.dcyuw9k.mongodb.net/?appName=Cluster0";
 
   if (!MONGODB_URI) {
     throw new Error('Please define MONGODB_URI in .env.local');

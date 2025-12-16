@@ -18,7 +18,7 @@ export default function ContactPage() {
       <MobileNewsEventsWrapper />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
+      <section className="pt-40 pb-20 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
         <div className="container mx-auto max-w-6xl">
           <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 tracking-tight">
             Contact Us

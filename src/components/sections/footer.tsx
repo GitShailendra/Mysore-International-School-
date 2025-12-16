@@ -8,26 +8,23 @@ import { motion, useInView } from 'framer-motion';
 import logo from "../../assets/SVG/mislight.svg";
 
 const quickLinks = [
-  { href: "#", label: "Contact Us" },
-  { href: "#", label: "Admissions" },
-  { href: "#", label: "Career Opportunities" },
-  { href: "#", label: "Campus Tour" },
+  { href: "/contact-us", label: "Contact Us" },
+  { href: "/admissions", label: "Admissions" },
+  { href: "/admissions/careers", label: "Career Opportunities" },
+  { href: "/our-campus", label: "Campus Tour" },
 ];
 
 const legalLinks = [
-  { href: "#", label: "Sitemap" },
+  { href: "/sitemap", label: "Sitemap" },
   { href: "#", label: "Privacy Policy" },
   { href: "#", label: "Accessibility" },
   { href: "#", label: "School Branding" },
 ];
 
 const socialLinks = [
-  { href: "#", icon: <Instagram className="w-4 h-4" />, name: "Instagram" },
-  { href: "#", icon: <Twitter className="w-4 h-4" />, name: "Twitter" },
-  { href: "#", icon: <Facebook className="w-4 h-4" />, name: "Facebook" },
-  { href: "#", icon: <Linkedin className="w-4 h-4" />, name: "LinkedIn" },
-  { href: "#", icon: <Star className="w-4 h-4" />, name: "Google Reviews" },
-  { href: "#", icon: <VimeoIcon className="w-4 h-4" />, name: "Vimeo" },
+  { href: "https://www.instagram.com/mys_intl_school/", icon: <Instagram className="w-4 h-4" />, name: "Instagram" },
+  { href: "https://www.facebook.com/Mysore.Intl.School/", icon: <Facebook className="w-4 h-4" />, name: "Facebook" },
+  { href: "https://in.linkedin.com/in/mlzsmysore", icon: <Linkedin className="w-4 h-4" />, name: "LinkedIn" },
 ];
 
 const Footer = () => {
@@ -40,7 +37,7 @@ const Footer = () => {
         className="absolute inset-0 bg-no-repeat bg-cover bg-center opacity-10"
         style={{backgroundImage: 'url(https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_5/v1746193790/Mysore International School/p3u4h62g7n8h69t22q6y/footer_bg-opt.jpg)'}}
       />
-      <div className="relative container mx-auto px-5 lg:px-10 py-16 lg:py-20">
+      <div className="relative container mx-auto px-5 lg:px-10 pt-16 pb-10 lg:pt-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-center">
           
           <motion.div
@@ -115,7 +112,8 @@ const Footer = () => {
                 </ul>
               </nav>
            
-            </div>
+            
+          </div>
 
             <div className="flex items-center gap-2">
               {socialLinks.map((social, index) => (

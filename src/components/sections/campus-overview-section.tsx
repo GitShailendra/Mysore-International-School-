@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import image from "../../assets/camp.jpg"
 import { motion, useInView } from 'framer-motion';
 
 const ActionButton = ({ href, children }: { href: string; children: React.ReactNode }) => (
@@ -28,7 +29,7 @@ const CampusOverviewSection: React.FC = () => {
           className="lg:w-3/5 w-full relative h-[500px] lg:h-auto"
         >
           <Image
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/RS194095_7C8A5789_1-26.jpg"
+            src={image}
             alt="Aerial view of Mysore International School campus"
             fill
             sizes="(max-width: 1023px) 100vw, 60vw"

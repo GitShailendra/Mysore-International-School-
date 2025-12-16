@@ -48,16 +48,16 @@ const mainNavItems = [
       { title: "Careers", href: "/admissions/careers" },
     ],
   },
-  {
-    title: "Student Life",
-    href: "/student-life",
-    image: studentlife,
-    subItems: [
-      { title: "Arts & Activities", href: "/student-life/arts-activities" },
-      { title: "Athletics", href: "/student-life/athletics" },
-      { title: "Events & Community Service", href: "/student-life/events-community-service" },
-    ],
-  },
+  // {
+  //   title: "Student Life",
+  //   href: "/student-life",
+  //   image: studentlife,
+  //   subItems: [
+  //     { title: "Arts & Activities", href: "/student-life/arts-activities" },
+  //     { title: "Athletics", href: "/student-life/athletics" },
+  //     { title: "Events & Community Service", href: "/student-life/events-community-service" },
+  //   ],
+  // },
   {
     title: "Contact Us",
     href: "/contact-us",
@@ -188,15 +188,10 @@ const HeaderNavigation = () => {
                     {/* Right Side - Menu Links */}
                     <div className="bg-white flex flex-col justify-center py-12 px-16">
                       <div className="space-y-2">
-                        {/* Main page link */}
-                        <Link
-                          href={item.href}
-                          className="block py-4 text-gray-900 hover:text-[#580B57] transition-colors duration-200 border-b border-gray-200 text-base font-semibold group"
-                        >
-                          <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">
-                            {item.title} Overview
-                          </span>
-                        </Link>
+                        {/* Main page heading (non-clickable) */}
+                        <div className="block py-4 text-[#580B57] text-xl font-bold font-serif uppercase tracking-wide">
+                          {item.title}
+                        </div>
 
                         {/* Sub items */}
                         {item.subItems.map((subItem, index) => (

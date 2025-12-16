@@ -16,27 +16,27 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const testimonialData = [
   {
-    name: "Chidera",
+    name: "Principal",
     poster: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/images/2025_Mysore International School_Chidera_002-C-S-M-9.jpg",
     videoUrl: "https://resources.finalsite.net/videos/t_video_h265_480/v1754071851/Mysore International School/ijrmxwb48vxphung3xj6/2025_Mysore International School_Chidera_002-C-S-M.mp4",
   },
   {
-    name: "Patrick",
+    name: "Vice-Principal",
     poster: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/images/2025_Mysore International School_Patrick_003-C-S-M-11.jpg",
     videoUrl: "https://resources.finalsite.net/videos/t_video_h265_480/v1753660284/Mysore International School/bavzlrzo4pi01x75dflw/2025_Mysore International School_Patrick_003-C-S-M.mp4",
   },
   {
-    name: "Riki",
+    name: "Teacher",
     poster: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/images/Riki-13.jpg",
     videoUrl: "https://resources.finalsite.net/videos/t_video_h265_480/v1753660438/Mysore International School/uhmitwebmckcq5j2rl9c/Riki.mp4",
   },
   {
-    name: "Charlotte",
+    name: "Parent",
     poster: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/images/CharlotteHero-15.jpg",
     videoUrl: "https://resources.finalsite.net/videos/t_video_h265_480/v1749216089/Mysore International School/zxkhwdvus9ud7xdmf97n/CharlotteHero.mp4",
   },
   {
-    name: "Allison",
+    name: "Student",
     poster: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/images/2025_Mysore International School_Shorts_Alison_001-17.jpg",
     videoUrl: "https://resources.finalsite.net/videos/t_video_mp4_480/v1754070477/Mysore International School/opg7umkmvehakaaonu0f/2025_Mysore International School_Shorts_Alison_001.mp4",
   },

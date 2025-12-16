@@ -8,6 +8,7 @@ import DiscoverCtaSection from '@/components/sections/discover-cta-section'
 import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useInView } from 'framer-motion'
+import Image from 'next/image'
 
 export default function CurriculumPage() {
   // Add smooth scroll styles to document
@@ -117,7 +118,7 @@ export default function CurriculumPage() {
     },
     {
       title: "International Enrichment",
-      grades: "Grade 11 & 12",
+      grades: "Grade 11",
       description: "Advanced curriculum with international perspectives, leadership development, and global citizenship.",
       features: [
         "Global perspectives",
@@ -222,6 +223,26 @@ export default function CurriculumPage() {
               fostering critical thinking and creativity in every learner.
             </p>
           </ScrollReveal>
+        </div>
+      </AnimatedSection>
+
+      {/* Orchids Partnership */}
+      <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-b border-gray-200">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-8 tracking-tight">
+            Orchids Partnership
+          </h2>
+          <div className="font-body text-xl text-gray-700 leading-relaxed space-y-6">
+            <p>
+              MIS is a Knowledge Partner with Orchids from the Academic Year 2024.
+            </p>
+            <p>
+              It emphasizes bringing out values in children through a practical approach.
+            </p>
+            <p>
+              Orchids provides us with Future Skills programmes such as The Climate Quest and Young Pioneers that enable students to be future ready and willing to face the challenges of the 21st century. They support us in developing a curriculum that is both locally relevant and sustainable for long-term success. To achieve this, Orchids provides us comprehensive training to empower our curriculum developers, enabling them to make future improvements more effectively.
+            </p>
+          </div>
         </div>
       </AnimatedSection>
 

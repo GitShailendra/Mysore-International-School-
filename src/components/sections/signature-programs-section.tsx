@@ -4,42 +4,36 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-
+import image1 from "../../assets/acadmicexcel.jpg"
+import image2 from "../../assets/exp.jpg"
+import image3 from "../../assets/art.jpg"
+import image4 from "../../assets/lead.jpg"
+import image5 from "../../assets/sports.jpg"
 const programs = [
   {
     title: "Academic Excellence",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/AHRHomepage-12.jpg",
+    image: image1,
     alt: "Students engaged in academic learning",
   },
   {
     title: "Experiential Learning",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/AMSRHomepageimage-15.jpg",
+    image: image2, 
     alt: "Students in hands-on learning activities",
   },
   {
     title: "Arts & Music",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/ProVitaHomepage-16.jpg",
+    image: image3, 
     alt: "Students engaged in arts and music activities",
   },
   {
     title: "Sports & Athletics",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/RKMP_2-17.jpg",
+    image: image5,
     alt: "Students participating in sports",
   },
-  {
-    title: "Technology & Innovation",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/AviationScience-18.jpg",
-    alt: "Students working with technology",
-  },
+ 
   {
     title: "Leadership Development",
-    image:
-      "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/87859ba7-84c9-4d54-a99e-419b59339f88-Mysore International Schoolschool-org/assets/icons/SabinHeader-14.jpg",
+    image: image4,
     alt: "Students in leadership activities",
   },
 ];
