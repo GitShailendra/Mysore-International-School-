@@ -18,9 +18,7 @@ const mainNavItems: NavItem[] = [
     href: "/about-us",
     subItems: [
       { label: "Founder & Chairman", href: "/about-us/founder-chairman" },
-      { label: "Vision & Mission", href: "/about-us/vision-mission" },
-      { label: "Core Values", href: "/about-us/core-values" },
-      { label: "History", href: "/about-us/history" },
+      { label: "Overview", href: "/about-us/overview" },
     ],
   },
   {
@@ -41,15 +39,6 @@ const mainNavItems: NavItem[] = [
     subItems: [
       { label: "How to Apply", href: "/admissions/how-to-apply" },
       { label: "Careers", href: "/admissions/careers" },
-    ],
-  },
-  {
-    label: "Student Life",
-    href: "/student-life",
-    subItems: [
-      { label: "Arts & Activities", href: "/student-life/arts-activities" },
-      { label: "Athletics", href: "/student-life/athletics" },
-      { label: "Events & Community Service", href: "/student-life/events-community-service" },
     ],
   },
   {
