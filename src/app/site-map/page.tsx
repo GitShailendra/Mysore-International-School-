@@ -5,8 +5,12 @@ import MobileNewsEventsWrapper from '@/components/mobile-news-events-wrapper'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Sitemap - Mysore International School',
-  description: 'Complete sitemap of Mysore International School website pages',
+  title: 'Site Map - Mysore International School',
+  description: 'Complete site map of Mysore International School website pages - navigate through all sections including admissions, academics, campus facilities, and contact information.',
+  keywords: 'site map, website navigation, Mysore International School pages, school website structure',
+  alternates: {
+    canonical: 'https://mysoreinternationalschool.com/site-map',
+  },
 }
 
 export default function SitemapPage() {

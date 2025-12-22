@@ -344,11 +344,6 @@ const NewsEventsSidebar: React.FC<NewsEventsSidebarProps> = ({ isOpen, onClose }
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto">
             <div className="px-8 py-12">
-              {/* Featured Video */}
-              <FeaturedVideo />
-
-              {/* Divider */}
-              <div className="border-t border-gray-200 my-12"></div>
 
               {/* Loading State */}
               {isLoading && (

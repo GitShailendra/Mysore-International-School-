@@ -11,6 +11,7 @@ import EventGalleryPage from "@/components/sections/event-gallery-page";
 import CampusOverviewSection from "@/components/sections/campus-overview-section";
 import DiscoverCtaSection from "@/components/sections/discover-cta-section";
 import Footer from "@/components/sections/footer";
+import SEOFAQSection from "@/components/SEOFAQSection";
 
 export default function HomePage() {
   return (
@@ -34,8 +35,10 @@ export default function HomePage() {
         
         <EventGalleryPage />
         
+        <SEOFAQSection />
+
         <CampusOverviewSection />
-        
+      
         <DiscoverCtaSection />
       </main>
       

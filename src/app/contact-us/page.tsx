@@ -7,8 +7,18 @@ import ContactForm from '@/components/ContactForm'
 import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Mysore International School',
-  description: 'Get in touch with Mysore International School - contact information, location, and inquiry details',
+  title: 'Contact Us - Best School in Mysore | Mysore International School',
+  description: 'Contact Mysore International School - the best international school in Mysore. Get admission information, schedule campus visits, and reach our team. Located at HD Kote Road, Mysore. Call +91-8884-300-400',
+  keywords: 'contact Mysore International School, best school in Mysore contact, school admission inquiry, Mysore school address, international school contact number',
+  openGraph: {
+    title: 'Contact Us - Mysore International School',
+    description: 'Get in touch with the best international school in Mysore. Schedule a campus visit today.',
+    url: 'https://mysoreinternationalschool.com/contact-us',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://mysoreinternationalschool.com/contact-us',
+  },
 }
 
 export default function ContactPage() {
@@ -180,14 +190,14 @@ export default function ContactPage() {
           </h2>
           <div className="border-2 border-gray-200 bg-white overflow-hidden aspect-[16/9]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.123456789!2d76.6234567!3d12.2987654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDE3JzU1LjYiTiA3NsKwMzcnMjQuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.8947847894789!2d76.58685!3d12.228557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf644f7358cc0d%3A0xe4fb32672e467b68!2sMysore%20International%20School!5e0!3m2!1sen!2sin!4v1734885000000!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Mysore International School Location"
+              title="Mysore International School Location - 92/1-3, HD Kote Road, Rayanakere Post, Mysore"
             ></iframe>
           </div>
         </div>
