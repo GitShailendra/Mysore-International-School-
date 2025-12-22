@@ -103,6 +103,8 @@ const HeaderNavigation = () => {
                 width={200}
                 height={33}
                 className="w-[200px] h-[33px]"
+                priority
+                unoptimized
               />
             </Link>
           </div>
