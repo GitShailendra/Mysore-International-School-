@@ -7,7 +7,7 @@ import { Menu, Search, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import MobileMenuOverlay from "./mobile-menu-overlay";
-import logo from "../../assets/SVG/LOGOTEXT.svg";
+import logo from "../../assets/LOGOTEXT.png";
 import aboutus from "../../assets/mis5.jpg";
 import academics from "../../assets/mis.jpg";
 import studentlife from "../../assets/mis2.jpg";
@@ -94,7 +94,7 @@ const HeaderNavigation = () => {
       </div>
 
       <header className="fixed top-0 lg:top-[32px] left-0 right-0 z-50 bg-[#580B57]">
-        <div className="mx-auto flex h-[88px] items-center justify-between px-5 md:px-10 max-w-[1700px]">
+        <div className="mx-auto flex h-[120px] items-center justify-between px-5 md:px-10 max-w-[1700px]">
           <div className="flex items-center">
             <Link href="/" className="mr-10">
               <Image
@@ -102,7 +102,7 @@ const HeaderNavigation = () => {
                 alt="Mysore International School"
                 width={200}
                 height={33}
-                className="w-[200px] h-[33px]"
+                className="w-[250px] h-[83px]"
                 priority
                 unoptimized
               />
