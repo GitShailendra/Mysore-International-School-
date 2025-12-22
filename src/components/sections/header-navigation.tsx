@@ -102,7 +102,7 @@ const HeaderNavigation = () => {
                 alt="Mysore International School"
                 width={200}
                 height={33}
-                className="w-[250px] h-[83px]"
+                className="md:w-[250px] md:h-[90px]"
                 priority
                 unoptimized
               />

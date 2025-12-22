@@ -577,10 +577,10 @@ export default function FacultyPage() {
             <p className="font-body text-lg text-gray-700 mb-8">
               Mail your latest Resume / CV to{' '}
               <a 
-                href="mailto:zeeschoolmysore@gmail.com" 
+                href="mailto:admissions@mysoreintlschool.com" 
                 className="text-primary font-semibold hover:text-[#6B0F6B] transition-colors duration-300"
               >
-                zeeschoolmysore@gmail.com
+                admissions@mysoreintlschool.com
               </a>
             </p>
             <p className="font-body text-base text-gray-600">

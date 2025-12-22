@@ -54,7 +54,7 @@ const Footer = () => {
                 Rayanakere Post, SH 33<br/>
                 Karnataka 570008, India
               </p>
-              <a href="mailto:zeeschoolmysore@gmail.com" className="block hover:underline">zeeschoolmysore@gmail.com</a>
+              <a href="mailto:admissions@mysoreintlschool.com" className="block hover:underline">admissions@mysoreintlschool.com</a>
             </div>
           </motion.div>
 

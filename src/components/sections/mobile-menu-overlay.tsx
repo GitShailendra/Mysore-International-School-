@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X, Plus, Minus, Search } from "lucide-react";
-import logo from "../../assets/SVG/LOGOTEXT.svg";
+import logo from "../../assets/SVG/mislight.svg";
 
 interface NavItem {
   label: string;
@@ -47,13 +47,6 @@ const mainNavItems: NavItem[] = [
   },
 ];
 
-const utilityNavItems = [
-  { label: "Parents & Families", href: "/parents-and-families" },
-  { label: "Alumni", href: "/alumni" },
-  { label: "Support", href: "/support" },
-  { label: "Bears' Den", href: "/bears-den" },
-  { label: "My Mysore International School Login", href: "/admin-login" },
-];
 
 const NavLink = ({ item, onClose }: { item: NavItem; onClose: () => void }) => {
   return (
@@ -71,16 +64,21 @@ const AccordionItem = ({ item, onClose }: { item: NavItem; onClose: () => void }
   const [isExpanded, setIsExpanded] = useState(false);
   const hasSubItems = item.subItems && item.subItems.length > 0;
 
+  const handleMainItemClick = () => {
+    if (hasSubItems) {
+      setIsExpanded(!isExpanded);
+    }
+  };
+
   return (
     <li className="border-b border-white/20 last:border-b-0">
       <div className="flex justify-between items-center h-[76px]">
-        <Link 
-          href={item.href} 
-          onClick={onClose}
-          className="font-display text-[28px] text-white hover:text-brand-accent-lime transition-colors"
+        <button
+          onClick={handleMainItemClick}
+          className="font-display text-[28px] text-white hover:text-brand-accent-lime transition-colors text-left flex-1"
         >
           {item.label}
-        </Link>
+        </button>
         {hasSubItems && (
           <button onClick={() => setIsExpanded(!isExpanded)} aria-expanded={isExpanded} className="text-white p-2 -mr-2">
             <span className="sr-only">toggle {item.label} section</span>
@@ -93,7 +91,13 @@ const AccordionItem = ({ item, onClose }: { item: NavItem; onClose: () => void }
           <ul className="pt-2 pb-6 space-y-[18px]">
             {item.subItems?.map((subItem) => (
               <li key={subItem.label}>
-                <NavLink item={subItem} onClose={onClose} />
+                <Link
+                  href={subItem.href}
+                  onClick={onClose}
+                  className="text-white/80 hover:text-white transition-colors duration-300 font-body"
+                >
+                  {subItem.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -129,7 +133,7 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = ({ isOpen, onClose }
             <Link href="/" onClick={onClose}>
               <Image
                 src={logo}
-                width={245}
+                width={140}
                 height={18}
                 alt="Mysore International School School"
               />
@@ -146,18 +150,7 @@ const MobileMenuOverlay: React.FC<MobileMenuOverlayProps> = ({ isOpen, onClose }
             </ul>
           </nav>
 
-          <nav className="mt-8 pt-8 border-t border-white/20 space-y-4">
-            {utilityNavItems.map((item) => (
-              <Link 
-                href={item.href} 
-                key={item.label} 
-                onClick={onClose}
-                className="block text-xl font-semibold text-white hover:text-brand-accent-lime transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          
         </div>
       </div>
     </div>
