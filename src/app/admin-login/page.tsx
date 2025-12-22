@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
                 onChange={handleChange}
                 required
                 className="w-full px-5 py-3.5 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/40 backdrop-blur-xl focus:outline-none focus:bg-white/10 focus:border-white/40 transition-all duration-300"
-                placeholder="admin@mis.edu.in"
+                placeholder="admin@mysoreinternationalschool.com"
               />
             </div>
 

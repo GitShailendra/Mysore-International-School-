@@ -126,7 +126,7 @@ const SignatureProgramsSection = () => {
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.1, ease: "easeOut" }}
                 className="bg-white text-black flex-shrink-0 w-[325px] group transition-transform duration-300 ease-out hover:scale-[1.02]"
               >
-                <a href="#" className="block cursor-pointer">
+                <div className="block">
                   <div className="relative aspect-square w-full overflow-hidden">
                     <Image
                       src={program.image}
@@ -141,7 +141,7 @@ const SignatureProgramsSection = () => {
                       {program.title}
                     </h3>
                   </div>
-                </a>
+                </div>
               </motion.article>
             ))}
           </div>

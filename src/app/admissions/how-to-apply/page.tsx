@@ -295,10 +295,10 @@ export default function HowToApplyPage() {
                 Call Us
               </div>
               <a 
-                href="tel:+91XXXXXXXXXX" 
+                href="tel:+918884300400" 
                 className="font-body text-2xl font-semibold text-primary hover:text-[#6B0F6B] transition-colors duration-300"
               >
-                +91 XXX XXX XXXX
+                +91 8884 300 400
               </a>
             </div>
 
@@ -307,10 +307,10 @@ export default function HowToApplyPage() {
                 Email Us
               </div>
               <a 
-                href="mailto:admissions@mis.edu.in" 
+                href="mailto:admissions@mysoreinternationalschool.com" 
                 className="font-body text-2xl font-semibold text-primary hover:text-[#6B0F6B] transition-colors duration-300"
               >
-                admissions@mis.edu.in
+                admissions@mysoreinternationalschool.com
               </a>
             </div>
           </div>

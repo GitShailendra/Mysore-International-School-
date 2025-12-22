@@ -143,7 +143,7 @@ export default function CareersPage() {
                 Submit Your Application
               </h3>
               <p className="font-body text-lg text-gray-700 leading-relaxed">
-                Send your resume and cover letter to careers@mis.edu.in. Include the position you're applying for in the subject line.
+                Send your resume and cover letter to careers@mysoreinternationalschool.com . Include the position you're applying for in the subject line.
               </p>
             </div>
 
@@ -187,10 +187,10 @@ export default function CareersPage() {
             Send your application to start your journey with us.
           </p>
           <a 
-            href="mailto:careers@mis.edu.in"
+            href="mailto:careers@mysoreinternationalschool"
             className="inline-block font-body text-lg font-semibold text-white bg-primary px-10 py-5 hover:bg-[#6B0F6B] transition-colors duration-300"
           >
-            careers@mis.edu.in
+            careers@mysoreinternationalschool.com
           </a>
         </div>
       </section>

@@ -5,6 +5,8 @@ import MobileNewsEventsWrapper from '@/components/mobile-news-events-wrapper'
 import DiscoverCtaSection from '@/components/sections/discover-cta-section'
 import ContactForm from '@/components/ContactForm'
 import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react'
+import Image from 'next/image'
+import contactUsImage from '@/assets/contactus.jpg'
 
 export const metadata: Metadata = {
   title: 'Contact Us - Best School in Mysore | Mysore International School',
@@ -28,14 +30,27 @@ export default function ContactPage() {
       <MobileNewsEventsWrapper />
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
-        <div className="container mx-auto max-w-6xl">
-          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 tracking-tight">
-            Contact Us
-          </h1>
-          <p className="font-body text-2xl md:text-3xl text-gray-600 max-w-4xl leading-tight">
-            Get in touch with Mysore International School. We're here to answer your questions and help you learn more about our community.
-          </p>
+      <section className="relative h-screen overflow-hidden">
+        <div className="relative h-full w-full">
+          <Image
+            src={contactUsImage}
+            alt="Contact Mysore International School - Get in Touch"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 flex items-center justify-center text-center text-white px-4 z-10">
+            <div className="max-w-4xl">
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-white">
+                Contact Us
+              </h1>
+              <p className="font-body text-xl md:text-2xl max-w-2xl mx-auto">
+                Get in touch with Mysore International School. We're here to answer your questions and help you learn more about our community.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

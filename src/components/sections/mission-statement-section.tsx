@@ -11,7 +11,7 @@ const MissionStatementSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={sectionRef} className="relative bg-secondary py-10 md:py-16 lg:py-20 overflow-hidden">
+    <section ref={sectionRef} className="relative bg-secondary pt-10 md:pt-16 lg:pt-20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 text-center flex flex-col items-center">
           <motion.p
@@ -41,20 +41,7 @@ const MissionStatementSection = () => {
         
         </div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 0.2, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-        className="absolute bottom-10 right-10 z-0 hidden md:block"
-      >
-        <Image
-          src={logo}
-          alt="Mysore International School Seal"
-          width={128}
-          height={128}
-          className="opacity-100"
-        />
-      </motion.div>
+  
     </section>
   );
 };

@@ -9,6 +9,10 @@ import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { useInView } from 'framer-motion'
 import Image from 'next/image'
+import kindergardenImage from '@/assets/kindergarden .png'
+import cbseImage from '@/assets/CBSE.png'
+import cambridgeImage from '@/assets/pu.png'
+import curriculumHeroImage from '@/assets/ourciriculum.jpg'
 
 export default function CurriculumPage() {
   // Add smooth scroll styles to document
@@ -28,6 +32,47 @@ export default function CurriculumPage() {
       
       body {
         -webkit-overflow-scrolling: touch;
+      }
+      
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      
+      @keyframes scroll-right {
+        0% {
+          transform: translateX(-50%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      
+      .scrolling-text {
+        display: flex;
+        white-space: nowrap;
+        animation: scroll-left 20s linear infinite;
+        transition: transform 0.3s ease-out;
+      }
+      
+      .scrolling-text-reverse {
+        display: flex;
+        white-space: nowrap;
+        animation: scroll-right 20s linear infinite;
+        transition: transform 0.3s ease-out;
+      }
+      
+      .scrolling-text span,
+      .scrolling-text-reverse span {
+        font-family: var(--font-display);
+        font-size: 2.25rem;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         overscroll-behavior: contain;
       }
       
@@ -98,34 +143,19 @@ export default function CurriculumPage() {
       title: "Foundational Years",
       grades: "Pre-K to Grade 2",
       description: "Early childhood education focusing on play-based learning, social skills, and basic literacy.",
-      features: [
-        "Play-based learning",
-        "Social-emotional development",
-        "Basic literacy & numeracy",
-        "Creative expression"
-      ]
+      align: "left"
     },
     {
       title: "CBSE Core",
       grades: "Grade 3 to Grade 10",
       description: "Comprehensive CBSE curriculum with emphasis on academic excellence and competitive exam preparation.",
-      features: [
-        "CBSE curriculum",
-        "Mathematics & Science focus",
-        "Language proficiency",
-        "Competitive exam prep"
-      ]
+      align: "right"
     },
     {
       title: "International Enrichment",
       grades: "Grade 11",
       description: "Advanced curriculum with international perspectives, leadership development, and global citizenship.",
-      features: [
-        "Global perspectives",
-        "Leadership development",
-        "Advanced academics",
-        "Career guidance"
-      ]
+      align: "left"
     }
   ]
 
@@ -195,14 +225,27 @@ export default function CurriculumPage() {
       <MobileNewsEventsWrapper />
 
       {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 tracking-tight">
-            Our Curriculum
-          </h1>
-          <p className="font-body text-2xl md:text-3xl text-gray-600 max-w-4xl leading-tight mx-auto">
-            Blending tradition with innovation for holistic learning
-          </p>
+      <section className="relative h-screen overflow-hidden">
+        <div className="relative h-full w-full">
+          <Image
+            src={curriculumHeroImage}
+            alt="Mysore International School - Our Curriculum"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 flex items-center justify-center text-center text-white px-4 z-10">
+            <div className="max-w-4xl">
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-white">
+                Our Curriculum
+              </h1>
+              <p className="font-body text-xl md:text-2xl max-w-2xl mx-auto">
+                Discover our comprehensive educational framework designed to nurture excellence and innovation in every student
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -246,43 +289,109 @@ export default function CurriculumPage() {
         </div>
       </AnimatedSection>
 
-      {/* Curriculum Stages */}
-      <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Curriculum Stages - Restructured */}
+      
+      {/* 1. Foundational Years */}
+      <AnimatedSection className=" px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
-          <div className="space-y-20">
-            {curriculumStages.map((stage, index) => (
-              <div 
-                key={index} 
-                className="pb-20 border-b border-gray-200 last:border-b-0"
-              >
-                <div className="grid md:grid-cols-2 gap-12">
-                  <div>
-                    <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
-                      {stage.title}
-                    </h2>
-                    <div className="font-body text-xl text-gray-600 mb-6">
-                      {stage.grades}
-                    </div>
-                    <p className="font-body text-xl text-gray-700 leading-relaxed">
-                      {stage.description}
-                    </p>
-                  </div>
-                  <div>
-                    <ul className="space-y-4">
-                      {stage.features.map((feature, featureIndex) => (
-                        <li 
-                          key={featureIndex} 
-                          className="font-body text-lg text-gray-700 leading-relaxed flex items-start"
-                        >
-                          <span className="text-primary mr-3 mt-1 flex-shrink-0">✓</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          <div className="relative">
+            <div className="absolute inset-0 w-screen left-1/2 -translate-x-1/2 h-full overflow-hidden">
+              <Image
+                src={kindergardenImage}
+                alt="Foundational Years - Kindergarden"
+                fill
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-white/75" />
+            </div>
+            <div className="relative z-10 py-12">
+              <div className="max-w-2xl mr-auto text-left">
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+                  {curriculumStages[0].title}
+                </h2>
+                <div className="font-body text-xl text-gray-600 mb-6">
+                  {curriculumStages[0].grades}
                 </div>
+                <p className="font-body text-xl text-gray-700 leading-relaxed">
+                  {curriculumStages[0].description}
+                </p>
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+      
+      {/* Scrolling Excellence Text 1 */}
+      <div className="w-full overflow-hidden bg-primary">
+        <div className="scrolling-text  text-white">
+          <span>Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence</span>
+        </div>
+      </div>
+      
+      {/* 2. CBSE Core */}
+      <AnimatedSection className=" px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="relative">
+            <div className="absolute inset-0 w-screen left-1/2 -translate-x-1/2 h-full overflow-hidden">
+              <Image
+                src={cbseImage}
+                alt="CBSE Core"
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-white/75" />
+            </div>
+            <div className="relative z-10 py-12">
+              <div className="max-w-2xl ml-auto text-right">
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+                  {curriculumStages[1].title}
+                </h2>
+                <div className="font-body text-xl text-gray-600 mb-6">
+                  {curriculumStages[1].grades}
+                </div>
+                <p className="font-body text-xl text-gray-700 leading-relaxed">
+                  {curriculumStages[1].description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+      
+      {/* Scrolling Excellence Text 2 - Reverse Direction */}
+      <div className="w-full overflow-hidden  bg-primary">
+        <div className="scrolling-text-reverse text-white">
+          <span>Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence Excellence</span>
+        </div>
+      </div>
+      
+      {/* 3. International Enrichment */}
+      <AnimatedSection className=" px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="relative">
+            <div className="absolute inset-0 w-screen left-1/2 -translate-x-1/2 h-full overflow-hidden">
+              <Image
+                src={cambridgeImage}
+                alt="International Enrichment - Cambridge"
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-white/75" />
+            </div>
+            <div className="relative z-10 py-12">
+              <div className="max-w-2xl mr-auto text-left">
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+                  {curriculumStages[2].title}
+                </h2>
+                <div className="font-body text-xl text-gray-600 mb-6">
+                  {curriculumStages[2].grades}
+                </div>
+                <p className="font-body text-xl text-gray-700 leading-relaxed">
+                  {curriculumStages[2].description}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </AnimatedSection>
