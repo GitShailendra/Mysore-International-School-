@@ -51,7 +51,7 @@ const Footer = () => {
               <p className="mb-0">
                 Mysore International School<br/>
                 92/1-5, HD Kote Road<br/>
-                Rayanakere Post, SH 33<br/>
+                D Salundi<br/>
                 Karnataka 570008, India
               </p>
               <a href="mailto:admissions@mysoreintlschool.com" className="block hover:underline">admissions@mysoreintlschool.com</a>

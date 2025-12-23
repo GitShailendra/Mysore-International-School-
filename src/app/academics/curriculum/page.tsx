@@ -269,22 +269,47 @@ export default function CurriculumPage() {
         </div>
       </AnimatedSection>
 
-      {/* Orchids Partnership */}
+      {/* Cambridge Partnership */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-b border-gray-200">
         <div className="container mx-auto max-w-6xl">
           <h2 className="font-display text-4xl md:text-5xl font-bold text-primary mb-8 tracking-tight">
-            Orchids Partnership
+            Cambridge Partnership
           </h2>
           <div className="font-body text-xl text-gray-700 leading-relaxed space-y-6">
             <p>
-              MIS is a Knowledge Partner with Orchids from the Academic Year 2024.
+              MIS is Knowledge Partner with Cambridge University Press from the Academic Year 2024.
             </p>
             <p>
-              It emphasizes bringing out values in children through a practical approach.
+              It Emphasis on bringing out values in children through a practical approach.
             </p>
             <p>
-              Orchids provides us with Future Skills programmes such as The Climate Quest and Young Pioneers that enable students to be future ready and willing to face the challenges of the 21st century. They support us in developing a curriculum that is both locally relevant and sustainable for long-term success. To achieve this, Orchids provides us comprehensive training to empower our curriculum developers, enabling them to make future improvements more effectively.
+              Cambridge provides us with Future Skills programmes such as  – The Climate Quest and Young Pioneers that enables students to be future ready and willing to face the challenges of the 21st century. They  support us in developing a curriculum that is both locally relevant and sustainable for long-term success. To achieve this, Cambridge provides us a comprehensive training to empower our curriculum developers, enabling them to make future improvements more effectively.
             </p>
+            <p>
+              The Cambridge is a globally recognised system (Cambridge pathway) with stages from early years to (A-levels), focusing on critical thinking problem solving and application of knowledge and flexibility for students to mix gore or extended or professional subjects like mathematics, science, global perspectives arts, IT for a board,Internationally recognised education to the schools.
+            </p>
+            
+            <div className="mt-8">
+              <h3 className="font-display text-2xl font-semibold text-primary mb-4">
+                Cambridge assessment:
+              </h3>
+              <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                <li><strong>Continuous Assessment</strong></li>
+                <li><strong>External assessment</strong></li>
+              </ol>
+              
+              <p className="mt-4">
+                <strong>Continuous assessment:</strong> is a mix of formative ongoing and summative(end of course) assessments.
+              </p>
+              
+              <p className="mt-4">
+                <strong>External Grading :</strong>Exams are marked by Cambridge Assessment International education, ensuring global standards and fairness.
+              </p>
+              
+              <p className="mt-4">
+                Cambridge syllabus is excellent for Indian students especially those aiming for global universities or careers as it fosters critical thinking and problem solving and strong English skills ,moving beyond rote learning toPractical application thoughCBSE might be better if focussing solely on Indian Cometitive exams.
+              </p>
+            </div>
           </div>
         </div>
       </AnimatedSection>

@@ -71,7 +71,7 @@ export default function ContactPage() {
                     <address className="font-body text-lg text-gray-700 not-italic leading-relaxed">
                       Mysore International School<br />
                       92/1-3, HD Kote Road<br />
-                      Rayanakere Post<br />
+                      D Salundi<br />
                       5 Minutes from Srirampura Ring Road<br />
                       Mysore – 570008
                     </address>
@@ -88,38 +88,26 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Admissions Contact */}
+              {/* Admin Contact */}
               <div className="pb-12 border-b border-gray-200">
                 <h2 className="font-display text-2xl font-semibold text-primary mb-6">
-                  Admissions
+                  Administration
                 </h2>
                 <div className="space-y-4">
-                  <div>
-                    <div className="font-body text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
-                      Admission Officer
-                    </div>
-                    <div className="font-body text-lg text-gray-700 mb-1">
-                      Ms. Ranjitha
-                    </div>
-                  </div>
                   <div className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                     <a
-                      href="mailto:admissions@mysoreinternationalschool.com"
+                      href="mailto:admin@mysoreinternationalschool.com"
                       className="font-body text-gray-700 hover:text-primary transition-colors"
                     >
-                      admissions@mysoreinternationalschool.com
+                      admin@mysoreinternationalschool.com
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <div className="font-body text-gray-700">
-                      <a href="tel:+918884300400" className="hover:text-primary transition-colors">
-                        +91 8884 300 400
-                      </a>
-                      {' / '}
-                      <a href="tel:+918277237785" className="hover:text-primary transition-colors">
-                        +91 8277 237 785
+                      <a href="tel:8884500600" className="hover:text-primary transition-colors">
+                        8884 500 600
                       </a>
                     </div>
                   </div>
@@ -175,11 +163,11 @@ export default function ContactPage() {
                     <div className="font-body text-lg text-gray-700 space-y-2">
                       <div className="flex justify-between gap-8">
                         <span>Monday - Friday</span>
-                        <span className="font-medium">8:00 AM - 4:00 PM</span>
+                        <span className="font-medium">9:00 AM - 5:00 PM</span>
                       </div>
                       <div className="flex justify-between gap-8">
                         <span>Saturday</span>
-                        <span className="font-medium">8:00 AM - 12:00 PM</span>
+                        <span className="font-medium">8:00 AM - 2:30 PM</span>
                       </div>
                       <div className="flex justify-between gap-8">
                         <span>Sunday</span>
