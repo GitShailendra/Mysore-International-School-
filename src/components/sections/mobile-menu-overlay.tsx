@@ -67,6 +67,10 @@ const AccordionItem = ({ item, onClose }: { item: NavItem; onClose: () => void }
   const handleMainItemClick = () => {
     if (hasSubItems) {
       setIsExpanded(!isExpanded);
+    } else {
+      // If no sub-items, navigate directly
+      window.location.href = item.href;
+      onClose();
     }
   };
 
