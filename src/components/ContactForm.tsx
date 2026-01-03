@@ -93,10 +93,10 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
       )}
 
       <h2 className="font-display text-3xl font-semibold text-primary mb-2">
-        Get in Touch
+        Apply for Admission
       </h2>
       <p className="font-body text-gray-600 mb-8">
-        Fill out the form below and we'll get back to you soon
+        Fill out the form below and our admissions team will connect with you soon
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -241,7 +241,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
         <button
           type="submit"
           disabled={isSubmitting || success}
-          className="w-full py-4 px-6 bg-primary text-white font-body font-semibold hover:bg-[#6B0F6B] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 px-6 bg-primary text-white font-body font-semibold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-[24px]"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">
@@ -254,7 +254,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
           ) : success ? (
             'Submitted Successfully!'
           ) : (
-            'Contact Us'
+            'Submit Admission Enquiry'
           )}
         </button>
       </form>
