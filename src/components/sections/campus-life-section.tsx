@@ -1,25 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Pause, Play } from "lucide-react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 
 export default function CampusLifeSection() {
   const sectionRef = useRef(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const handlePlayPause = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -64,32 +55,29 @@ export default function CampusLifeSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-          className="relative rounded-2xl overflow-hidden shadow-2xl"
+          className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video"
         >
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/mis.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <iframe
+            className="absolute inset-0 w-full h-full object-cover"
+            src={`https://www.youtube.com/embed/fJPbc3oF20w?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=fJPbc3oF20w&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3`}
+            title="Life at Mysore International School"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
 
           <div className="absolute inset-0 bg-black/20"></div>
 
           <div className="absolute bottom-6 right-6">
             <button
-              onClick={handlePlayPause}
-              aria-label={isPlaying ? "Pause video" : "Play video"}
+              onClick={toggleMute}
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
               className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/80 text-white transition-opacity hover:opacity-70 bg-white/20 backdrop-blur-sm"
             >
-              {isPlaying ? (
-                <Pause className="h-6 w-6 fill-white" />
+              {isMuted ? (
+                <VolumeX className="h-6 w-6" />
               ) : (
-                <Play className="h-6 w-6 ml-1 fill-white" />
+                <Volume2 className="h-6 w-6" />
               )}
             </button>
           </div>

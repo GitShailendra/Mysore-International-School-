@@ -1,45 +1,37 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Pause, Play, ChevronDown, Volume2, VolumeX } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 
 export default function HeroVideoSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
 
-  const handlePlayPause = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
   const handleMuteToggle = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
-    }
+    setIsMuted(!isMuted);
   };
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-brand-black">
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/josephvid.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="absolute inset-0 w-full h-full">
+        <iframe
+          className="absolute inset-0 w-full h-full object-cover"
+          src={`https://www.youtube.com/embed/9FC-8oaAsUM?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=9FC-8oaAsUM&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3`}
+          title="Mysore International School Founder Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100vw',
+            height: '56.25vw',
+            minWidth: '100%',
+            minHeight: '100%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      </div>
 
       <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/20 to-black/50"></div>
 
@@ -59,18 +51,6 @@ export default function HeroVideoSection() {
         </a>
 
         <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 flex gap-3">
-          <button
-            onClick={handlePlayPause}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 text-white transition-opacity hover:opacity-70 md:h-12 md:w-12"
-          >
-            {isPlaying ? (
-              <Pause className="h-5 w-5 fill-white md:h-6 md:w-6" />
-            ) : (
-              <Play className="h-5 w-5 ml-1 fill-white md:h-6 md:w-6" />
-            )}
-          </button>
-
           <button
             onClick={handleMuteToggle}
             aria-label={isMuted ? "Unmute video" : "Mute video"}

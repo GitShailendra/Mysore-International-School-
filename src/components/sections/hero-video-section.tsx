@@ -1,37 +1,69 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Pause, Play, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 
 export default function HeroVideoSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const handlePlayPause = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      setUserInteracted(true);
+      // Remove listener after first interaction
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+    };
+
+    // Add event listeners for user interaction
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+    document.addEventListener('touchstart', handleUserInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+    };
+  }, []);
+
+  const handleMuteToggle = () => {
+    setUserInteracted(true);
+    
+    // Force reload iframe with new mute parameter
+    const newMuteState = !isMuted;
+    setIsMuted(newMuteState);
+    
+    if (iframeRef.current) {
+      const currentSrc = iframeRef.current.src;
+      const newSrc = currentSrc.replace(/mute=\d/, `mute=${newMuteState ? 1 : 0}`);
+      iframeRef.current.src = newSrc;
     }
   };
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-brand-black">
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/mis.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="absolute inset-0 w-full h-full">
+        <iframe
+          ref={iframeRef}
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube.com/embed/Htgvj-znBRY?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=Htgvj-znBRY&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&autohide=1`}
+          title="Mysore International School Hero Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none'
+          }}
+        />
+      </div>
 
       <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/20 to-black/50"></div>
 
@@ -52,16 +84,19 @@ export default function HeroVideoSection() {
 
         <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
           <button
-            onClick={handlePlayPause}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 text-white transition-opacity hover:opacity-70 md:h-12 md:w-12"
+            onClick={handleMuteToggle}
+            aria-label={isMuted ? "Unmute video" : "Mute video"}
+            className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/80 text-white transition-all duration-300 hover:scale-110 hover:bg-white/20 md:h-14 md:w-14 bg-white/10 backdrop-blur-sm shadow-lg"
           >
-            {isPlaying ? (
-              <Pause className="h-5 w-5 fill-white md:h-6 md:w-6" />
+            {isMuted ? (
+              <VolumeX className="h-6 w-6 md:h-7 md:w-7" />
             ) : (
-              <Play className="h-5 w-5 ml-1 fill-white md:h-6 md:w-6" />
+              <Volume2 className="h-6 w-6 md:h-7 md:w-7" />
             )}
           </button>
+          <p className="text-white/80 text-xs mt-2 text-center font-medium max-w-[100px]">
+            {!userInteracted && isMuted ? "Click anywhere first" : isMuted ? "Sound Off" : "Sound On"}
+          </p>
         </div>
       </div>
     </section>
